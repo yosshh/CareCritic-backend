@@ -26,6 +26,7 @@ const userSchema = new Schema(
     },
     profileImage: {
       type: String, // cloudinary url
+      default: ""
     },
     password: {
       type: String,
