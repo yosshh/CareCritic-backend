@@ -7,12 +7,9 @@ const hospitalSchema = new Schema(
       required: true,
       unique: true,
     },
-    addressLine1: {
+    address: {
       type: String,
       required: true,
-    },
-    addressLine2: {
-      type: String,
     },
     city: {
       type: String,
@@ -23,7 +20,7 @@ const hospitalSchema = new Schema(
       required: true,
     },
     ContactNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     hospitalEmail: {

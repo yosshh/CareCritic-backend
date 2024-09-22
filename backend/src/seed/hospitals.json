@@ -1,0 +1,665 @@
+[
+    {
+        "hospitalName": "Shri Mahavir Hospital",
+        "address": "Sector 5, Dwarka, New Delhi",
+        "city": "New Delhi",
+        "ContactNumber": "011-2234567890",
+        "pincode": "110075",
+        "hospitalEmail": "mahavirhospital2010@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "Neurology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Gandhi Nagar General Hospital",
+        "address": "MG Road, Gandhi Nagar, Chennai",
+        "city": "Chennai",
+        "ContactNumber": "044-9876543210",
+        "pincode": "600020",
+        "hospitalEmail": "gngeneralhos2022@gmail.com",
+        "specializedIn": [
+            "General Surgery",
+            "Dermatology"
+        ],
+        "rating": 4.0
+    },
+    {
+        "hospitalName": "Dr. Radhakrishnan Memorial Hospital",
+        "address": "Kankarbagh, Patna",
+        "city": "Patna",
+        "ContactNumber": "0612-2547890654",
+        "pincode": "800020",
+        "hospitalEmail": "drkmhospital2019@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Gastroenterology"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Rajiv Gandhi Government Hospital",
+        "address": "Tambaram, Chennai",
+        "city": "Chennai",
+        "ContactNumber": "044-2654387654",
+        "pincode": "600073",
+        "hospitalEmail": "rghospital2021@gmail.com",
+        "specializedIn": [
+            "Oncology",
+            "Neurology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Mahatma Phule Government Hospital",
+        "address": "Aundh, Pune",
+        "city": "Pune",
+        "ContactNumber": "020-2654321098",
+        "pincode": "411007",
+        "hospitalEmail": "mphospital2020@gmail.com",
+        "specializedIn": [
+            "Urology",
+            "Nephrology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Subhash Chandra Bose Hospital",
+        "address": "Andheri West, Mumbai",
+        "city": "Mumbai",
+        "ContactNumber": "022-2654321097",
+        "pincode": "400058",
+        "hospitalEmail": "scbhospi2019@gmail.com",
+        "specializedIn": [
+            "Pediatrics",
+            "Ophthalmology"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Sri Krishna District Hospital",
+        "address": "Raja Park, Jaipur",
+        "city": "Jaipur",
+        "ContactNumber": "0141-2654387654",
+        "pincode": "302004",
+        "hospitalEmail": "krishnahospital@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "Pulmonology"
+        ],
+        "rating": 4.0
+    },
+    {
+        "hospitalName": "Veer Savarkar General Hospital",
+        "address": "Dadar East, Mumbai",
+        "city": "Mumbai",
+        "ContactNumber": "022-2667894356",
+        "pincode": "400014",
+        "hospitalEmail": "savarkarhosp2018@gmail.com",
+        "specializedIn": [
+            "ENT",
+            "Cardiology"
+        ],
+        "rating": 4.4
+    },
+    {
+        "hospitalName": "Sardar Patel Memorial Hospital",
+        "address": "Bodakdev, Ahmedabad",
+        "city": "Ahmedabad",
+        "ContactNumber": "079-2667894300",
+        "pincode": "380054",
+        "hospitalEmail": "spmhospital2020@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Neurology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Dr. B. R. Ambedkar District Hospital",
+        "address": "Kolkata Road, Ranchi",
+        "city": "Ranchi",
+        "ContactNumber": "0651-2544321098",
+        "pincode": "834002",
+        "hospitalEmail": "bradhospital@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "Cardiology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Indira Gandhi Memorial Hospital",
+        "address": "Vijay Nagar, Indore",
+        "city": "Indore",
+        "ContactNumber": "0731-2654765432",
+        "pincode": "452010",
+        "hospitalEmail": "igmhospital2019@gmail.com",
+        "specializedIn": [
+            "Gynecology",
+            "Pediatrics"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Jawaharlal Nehru Government Hospital",
+        "address": "Paldi, Ahmedabad",
+        "city": "Ahmedabad",
+        "ContactNumber": "079-2654321089",
+        "pincode": "380007",
+        "hospitalEmail": "jnghospital2018@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Endocrinology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Netaji Subhas Chandra Bose Hospital",
+        "address": "Salt Lake, Kolkata",
+        "city": "Kolkata",
+        "ContactNumber": "033-2667894321",
+        "pincode": "700064",
+        "hospitalEmail": "nsbhospital2021@gmail.com",
+        "specializedIn": [
+            "Pediatrics",
+            "Pulmonology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Bal Gangadhar Tilak Memorial Hospital",
+        "address": "Parel, Mumbai",
+        "city": "Mumbai",
+        "ContactNumber": "022-2645894321",
+        "pincode": "400012",
+        "hospitalEmail": "bgthospital2020@gmail.com",
+        "specializedIn": [
+            "Oncology",
+            "Neurology"
+        ],
+        "rating": 4.4
+    },
+    {
+        "hospitalName": "Sarojini Naidu General Hospital",
+        "address": "Gandhi Nagar, Hyderabad",
+        "city": "Hyderabad",
+        "ContactNumber": "040-2645894210",
+        "pincode": "500080",
+        "hospitalEmail": "snhospital@gmail.com",
+        "specializedIn": [
+            "Gynecology",
+            "General Surgery"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Lal Bahadur Shastri Memorial Hospital",
+        "address": "Vasanth Nagar, Bangalore",
+        "city": "Bangalore",
+        "ContactNumber": "080-2654789023",
+        "pincode": "560001",
+        "hospitalEmail": "lbshospital2022@gmail.com",
+        "specializedIn": [
+            "Neurology",
+            "Cardiology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Rani Laxmi Bai District Hospital",
+        "address": "Civil Lines, Kanpur",
+        "city": "Kanpur",
+        "ContactNumber": "0512-2654987321",
+        "pincode": "208001",
+        "hospitalEmail": "rlbdistricthosp@gmail.com",
+        "specializedIn": [
+            "Gynecology",
+            "Pediatrics"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Lokmanya Tilak General Hospital",
+        "address": "Chembur, Mumbai",
+        "city": "Mumbai",
+        "ContactNumber": "022-2665987432",
+        "pincode": "400071",
+        "hospitalEmail": "ltghospital2020@gmail.com",
+        "specializedIn": [
+            "General Surgery",
+            "Ophthalmology"
+        ],
+        "rating": 4.0
+    },
+    {
+        "hospitalName": "Shaheed Bhagat Singh Memorial Hospital",
+        "address": "Amritsar Road, Ludhiana",
+        "city": "Ludhiana",
+        "ContactNumber": "0161-2654321897",
+        "pincode": "141003",
+        "hospitalEmail": "sbsmhospital2021@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "ENT"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Chhatrapati Shivaji Maharaj District Hospital",
+        "address": "Shivaji Nagar, Pune",
+        "city": "Pune",
+        "ContactNumber": "020-2654876532",
+        "pincode": "411005",
+        "hospitalEmail": "csmdhospital@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Neurology"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Dr. Sarvepalli Radhakrishnan Hospital",
+        "address": "Ashok Vihar, Delhi",
+        "city": "New Delhi",
+        "ContactNumber": "011-2687876543",
+        "pincode": "110052",
+        "hospitalEmail": "dsrhospital@gmail.com",
+        "specializedIn": [
+            "Pediatrics",
+            "Dermatology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Chandrashekhar Azad Government Hospital",
+        "address": "Aliganj, Lucknow",
+        "city": "Lucknow",
+        "ContactNumber": "0522-2648987321",
+        "pincode": "226024",
+        "hospitalEmail": "caghospital2022@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "Cardiology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Dr. APJ Abdul Kalam Memorial Hospital",
+        "address": "Adyar, Chennai",
+        "city": "Chennai",
+        "ContactNumber": "044-2654876542",
+        "pincode": "600020",
+        "hospitalEmail": "apjkalamhospital@gmail.com",
+        "specializedIn": [
+            "Neurology",
+            "Oncology"
+        ],
+        "rating": 4.4
+    },
+    {
+        "hospitalName": "Dr. Zakir Hussain Memorial Hospital",
+        "address": "Gachibowli, Hyderabad",
+        "city": "Hyderabad",
+        "ContactNumber": "040-2645893210",
+        "pincode": "500032",
+        "hospitalEmail": "zhhosp@gmail.com",
+        "specializedIn": [
+            "Pulmonology",
+            "Pediatrics"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Rajendra Prasad Memorial Hospital",
+        "address": "Sector 34, Chandigarh",
+        "city": "Chandigarh",
+        "ContactNumber": "0172-2654321097",
+        "pincode": "160022",
+        "hospitalEmail": "rphospital2020@gmail.com",
+        "specializedIn": [
+            "Dermatology",
+            "Cardiology"
+        ],
+        "rating": 4.0
+    },
+    {
+        "hospitalName": "Pandit Madan Mohan Malaviya General Hospital",
+        "address": "Kothrud, Pune",
+        "city": "Pune",
+        "ContactNumber": "020-2645987432",
+        "pincode": "411038",
+        "hospitalEmail": "mmmalaviyahospital@gmail.com",
+        "specializedIn": [
+            "Oncology",
+            "Pediatrics"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Annie Besant Memorial Hospital",
+        "address": "Rajaji Nagar, Bangalore",
+        "city": "Bangalore",
+        "ContactNumber": "080-2654876541",
+        "pincode": "560010",
+        "hospitalEmail": "abmemorialhospital@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Gynecology"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Acharya Vinoba Bhave General Hospital",
+        "address": "Connaught Place, New Delhi",
+        "city": "New Delhi",
+        "ContactNumber": "011-2689321098",
+        "pincode": "110001",
+        "hospitalEmail": "avbhospital@gmail.com",
+        "specializedIn": [
+            "Dermatology",
+            "General Surgery"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Rabindranath Tagore Memorial Hospital",
+        "address": "Park Street, Kolkata",
+        "city": "Kolkata",
+        "ContactNumber": "033-2645876542",
+        "pincode": "700016",
+        "hospitalEmail": "rtmemorialhospital@gmail.com",
+        "specializedIn": [
+            "Pediatrics",
+            "Cardiology"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Sardar Vallabhbhai Patel District Hospital",
+        "address": "Vasna, Ahmedabad",
+        "city": "Ahmedabad",
+        "ContactNumber": "079-2654789321",
+        "pincode": "380007",
+        "hospitalEmail": "svphospital2020@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "Neurology"
+        ],
+        "rating": 4.4
+    },
+    {
+        "hospitalName": "Indira Gandhi District Hospital",
+        "address": "Jayanagar, Bangalore",
+        "city": "Bangalore",
+        "ContactNumber": "080-2654789543",
+        "pincode": "560011",
+        "hospitalEmail": "igdhospital2020@gmail.com",
+        "specializedIn": [
+            "Neurology",
+            "Ophthalmology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Maharaja Agrasen Memorial Hospital",
+        "address": "Kirti Nagar, Delhi",
+        "city": "New Delhi",
+        "ContactNumber": "011-2678432109",
+        "pincode": "110015",
+        "hospitalEmail": "mahmhospital@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Gynecology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Maulana Azad General Hospital",
+        "address": "Daryaganj, New Delhi",
+        "city": "New Delhi",
+        "ContactNumber": "011-2649876543",
+        "pincode": "110002",
+        "hospitalEmail": "mazadhospital2021@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "Pulmonology"
+        ],
+        "rating": 4.0
+    },
+    {
+        "hospitalName": "Chandrashekhar Azad District Hospital",
+        "address": "Hazratganj, Lucknow",
+        "city": "Lucknow",
+        "ContactNumber": "0522-2687654321",
+        "pincode": "226001",
+        "hospitalEmail": "cadhospital@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Nephrology"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Rani Gaidinliu Memorial Hospital",
+        "address": "Laitumkhrah, Shillong",
+        "city": "Shillong",
+        "ContactNumber": "0364-2654321097",
+        "pincode": "793003",
+        "hospitalEmail": "rgmhospital2020@gmail.com",
+        "specializedIn": [
+            "Gynecology",
+            "Dermatology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Dr. B. C. Roy Memorial Hospital",
+        "address": "Jadavpur, Kolkata",
+        "city": "Kolkata",
+        "ContactNumber": "033-2645987432",
+        "pincode": "700032",
+        "hospitalEmail": "bcmemorialhospital2022@gmail.com",
+        "specializedIn": [
+            "Pediatrics",
+            "Cardiology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Birsa Munda Memorial Hospital",
+        "address": "Lalpur, Ranchi",
+        "city": "Ranchi",
+        "ContactNumber": "0651-2654321097",
+        "pincode": "834001",
+        "hospitalEmail": "bmunda2021@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "General Surgery"
+        ],
+        "rating": 4.0
+    },
+    {
+        "hospitalName": "Dr. Shyama Prasad Mukherjee District Hospital",
+        "address": "Sector 19, Noida",
+        "city": "Noida",
+        "ContactNumber": "0120-2654765432",
+        "pincode": "201301",
+        "hospitalEmail": "spmdistricthospital2022@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Neurology"
+        ],
+        "rating": 4.4
+    },
+    {
+        "hospitalName": "Nehru Memorial Hospital",
+        "address": "Green Park, New Delhi",
+        "city": "New Delhi",
+        "ContactNumber": "011-2645987432",
+        "pincode": "110016",
+        "hospitalEmail": "nmhospital2020@gmail.com",
+        "specializedIn": [
+            "Dermatology",
+            "Ophthalmology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Sri Aurobindo District Hospital",
+        "address": "Rohini, Delhi",
+        "city": "New Delhi",
+        "ContactNumber": "011-2654320987",
+        "pincode": "110085",
+        "hospitalEmail": "aurobindo2020@gmail.com",
+        "specializedIn": [
+            "Neurology",
+            "General Surgery"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Pandit Nehru General Hospital",
+        "address": "Sector 22, Chandigarh",
+        "city": "Chandigarh",
+        "ContactNumber": "0172-2654765432",
+        "pincode": "160022",
+        "hospitalEmail": "pnehruhospital@gmail.com",
+        "specializedIn": [
+            "Pediatrics",
+            "Nephrology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Baba Saheb Ambedkar DistrictGeneral Hospital",
+        "address": "Rajouri Garden, New Delhi",
+        "city": "New Delhi",
+        "ContactNumber": "011-2687432109",
+        "pincode": "110027",
+        "hospitalEmail": "bsaghospital@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "Cardiology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Smt. Kamla Nehru Memorial Hospital",
+        "address": "Baner, Pune",
+        "city": "Pune",
+        "ContactNumber": "020-2654876543",
+        "pincode": "411045",
+        "hospitalEmail": "knmhospital@gmail.com",
+        "specializedIn": [
+            "Gynecology",
+            "Ophthalmology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Dr. Rajendra Prasad General Hospital",
+        "address": "Ballygunge, Kolkata",
+        "city": "Kolkata",
+        "ContactNumber": "033-2654789321",
+        "pincode": "700019",
+        "hospitalEmail": "drpghospital@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Neurology"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Rajguru Memorial General Hospital",
+        "address": "Malabar Hill, Mumbai",
+        "city": "Mumbai",
+        "ContactNumber": "022-2687654321",
+        "pincode": "400006",
+        "hospitalEmail": "rgmhospital@gmail.com",
+        "specializedIn": [
+            "Dermatology",
+            "Pediatrics"
+        ],
+        "rating": 4.0
+    },
+    {
+        "hospitalName": "Tilak Nagar District Hospital",
+        "address": "Tilak Nagar, Jaipur",
+        "city": "Jaipur",
+        "ContactNumber": "0141-2654321098",
+        "pincode": "302004",
+        "hospitalEmail": "tnhospital@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "ENT"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Mangal Pandey General Hospital",
+        "address": "Nungambakkam, Chennai",
+        "city": "Chennai",
+        "ContactNumber": "044-2687654321",
+        "pincode": "600034",
+        "hospitalEmail": "mphospital2021@gmail.com",
+        "specializedIn": [
+            "Cardiology",
+            "Neurology"
+        ],
+        "rating": 4.3
+    },
+    {
+        "hospitalName": "Kasturba Gandhi Memorial Hospital",
+        "address": "Bandra West, Mumbai",
+        "city": "Mumbai",
+        "ContactNumber": "022-2654789321",
+        "pincode": "400050",
+        "hospitalEmail": "kgmhospital2022@gmail.com",
+        "specializedIn": [
+            "Gynecology",
+            "Pulmonology"
+        ],
+        "rating": 4.2
+    },
+    {
+        "hospitalName": "Vivekananda District Hospital",
+        "address": "JP Nagar, Bangalore",
+        "city": "Bangalore",
+        "ContactNumber": "080-2687654321",
+        "pincode": "560078",
+        "hospitalEmail": "vdhospital2020@gmail.com",
+        "specializedIn": [
+            "Orthopedics",
+            "Cardiology"
+        ],
+        "rating": 4.1
+    },
+    {
+        "hospitalName": "Bhagat Singh Memorial Hospital",
+        "address": "GT Road, Amritsar",
+        "city": "Amritsar",
+        "ContactNumber": "0183-2687654321",
+        "pincode": "143001",
+        "hospitalEmail": "bsmhospital@gmail.com",
+        "specializedIn": [
+            "Neurology",
+            "Pediatrics"
+        ],
+        "rating": 4.0
+    },
+    {
+        "hospitalName": "Kamaladevi Chattopadhyay Memorial Hospital",
+        "address": "Banjara Hills, Hyderabad",
+        "city": "Hyderabad",
+        "ContactNumber": "040-2654876543",
+        "pincode": "500034",
+        "hospitalEmail": "kcmhospital@gmail.com",
+        "specializedIn": [
+            "General Surgery",
+            "Gynecology"
+        ],
+        "rating": 4.2
+    }
+]
