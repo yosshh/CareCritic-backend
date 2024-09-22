@@ -10,6 +10,9 @@ const getAllHospitals = asyncHandler( async(req, res)=> {
         throw new ApiError(500, "Something went wrong while fetching hospitals")
     }
 
+    console.log(hospitals); // Add this line to see what you get from the database
+
+
     if (hospitals.length === 0) {
         return res.status(404).json(new ApiResponse(404, null, "No hospitals found"));
     }

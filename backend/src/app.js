@@ -10,8 +10,8 @@ app.use(cors({
     credentials: true
 }))
 
-app.use(express.json({limit: JSON_LIMIT})) // this specifies the maximum size of incoming json payload
-app.use(express.urlencoded({extended: true, limit: JSON_LIMIT}))
+app.use(express.json()) // this specifies the maximum size of incoming json payload
+app.use(express.urlencoded({extended: true}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
@@ -23,6 +23,6 @@ import hospitalRouter from './routes/hospital.routes.js'
 
 //route declaration
 app.use("/api/v1/users", userRouter)
-app.use("/api/v1", hospitalRouter)
+app.use("/api/v1/hospitals", hospitalRouter)
 
 export { app }
