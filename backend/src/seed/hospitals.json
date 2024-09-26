@@ -6,6 +6,7 @@
         "ContactNumber": "011-2234567890",
         "pincode": "110075",
         "hospitalEmail": "mahavirhospital2010@gmail.com",
+        "localImagePath": "C:\\Users\\yshuk_vqwlj98\\CareCritic\\backend\\assets\\1.jpg",
         "specializedIn": [
             "Orthopedics",
             "Neurology"
@@ -19,6 +20,7 @@
         "ContactNumber": "044-9876543210",
         "pincode": "600020",
         "hospitalEmail": "gngeneralhos2022@gmail.com",
+        "localImagePath": "./assets/2.jpg",
         "specializedIn": [
             "General Surgery",
             "Dermatology"
@@ -32,6 +34,7 @@
         "ContactNumber": "0612-2547890654",
         "pincode": "800020",
         "hospitalEmail": "drkmhospital2019@gmail.com",
+        "localImagePath": "./assets/3.jpg",
         "specializedIn": [
             "Cardiology",
             "Gastroenterology"
@@ -45,6 +48,7 @@
         "ContactNumber": "044-2654387654",
         "pincode": "600073",
         "hospitalEmail": "rghospital2021@gmail.com",
+        "localImagePath": "./assets/4.jpg",
         "specializedIn": [
             "Oncology",
             "Neurology"
@@ -58,6 +62,7 @@
         "ContactNumber": "020-2654321098",
         "pincode": "411007",
         "hospitalEmail": "mphospital2020@gmail.com",
+        "localImagePath": "./assets/5.jpg",
         "specializedIn": [
             "Urology",
             "Nephrology"
@@ -71,6 +76,7 @@
         "ContactNumber": "022-2654321097",
         "pincode": "400058",
         "hospitalEmail": "scbhospi2019@gmail.com",
+        "localImagePath": "./assets/6.jpg",
         "specializedIn": [
             "Pediatrics",
             "Ophthalmology"
@@ -84,6 +90,7 @@
         "ContactNumber": "0141-2654387654",
         "pincode": "302004",
         "hospitalEmail": "krishnahospital@gmail.com",
+        "localImagePath": "./assets/7.jpg",
         "specializedIn": [
             "Orthopedics",
             "Pulmonology"
@@ -97,6 +104,7 @@
         "ContactNumber": "022-2667894356",
         "pincode": "400014",
         "hospitalEmail": "savarkarhosp2018@gmail.com",
+        "localImagePath": "./assets/8.jpg",
         "specializedIn": [
             "ENT",
             "Cardiology"
@@ -110,6 +118,7 @@
         "ContactNumber": "079-2667894300",
         "pincode": "380054",
         "hospitalEmail": "spmhospital2020@gmail.com",
+        "localImagePath": "./assets/9.jpg",
         "specializedIn": [
             "Cardiology",
             "Neurology"
@@ -123,6 +132,7 @@
         "ContactNumber": "0651-2544321098",
         "pincode": "834002",
         "hospitalEmail": "bradhospital@gmail.com",
+        "localImagePath": "C:\\Users\\yshuk_vqwlj98\\CareCritic\\backend\\assets\\1.jpg",
         "specializedIn": [
             "Orthopedics",
             "Cardiology"
@@ -136,6 +146,7 @@
         "ContactNumber": "0731-2654765432",
         "pincode": "452010",
         "hospitalEmail": "igmhospital2019@gmail.com",
+        "localImagePath": "./assets/2.jpg",
         "specializedIn": [
             "Gynecology",
             "Pediatrics"
@@ -149,6 +160,7 @@
         "ContactNumber": "079-2654321089",
         "pincode": "380007",
         "hospitalEmail": "jnghospital2018@gmail.com",
+        "localImagePath": "./assets/3.jpg",
         "specializedIn": [
             "Cardiology",
             "Endocrinology"
@@ -162,6 +174,7 @@
         "ContactNumber": "033-2667894321",
         "pincode": "700064",
         "hospitalEmail": "nsbhospital2021@gmail.com",
+        "localImagePath": "./assets/4.jpg",
         "specializedIn": [
             "Pediatrics",
             "Pulmonology"
@@ -175,6 +188,7 @@
         "ContactNumber": "022-2645894321",
         "pincode": "400012",
         "hospitalEmail": "bgthospital2020@gmail.com",
+        "localImagePath": "./assets/5.jpg",
         "specializedIn": [
             "Oncology",
             "Neurology"
@@ -188,6 +202,7 @@
         "ContactNumber": "040-2645894210",
         "pincode": "500080",
         "hospitalEmail": "snhospital@gmail.com",
+        "localImagePath": "./assets/6.jpg",
         "specializedIn": [
             "Gynecology",
             "General Surgery"
@@ -201,6 +216,7 @@
         "ContactNumber": "080-2654789023",
         "pincode": "560001",
         "hospitalEmail": "lbshospital2022@gmail.com",
+        "localImagePath": "./assets/7.jpg",
         "specializedIn": [
             "Neurology",
             "Cardiology"
@@ -214,6 +230,7 @@
         "ContactNumber": "0512-2654987321",
         "pincode": "208001",
         "hospitalEmail": "rlbdistricthosp@gmail.com",
+        "localImagePath": "./assets/8.jpg",
         "specializedIn": [
             "Gynecology",
             "Pediatrics"
@@ -227,6 +244,7 @@
         "ContactNumber": "022-2665987432",
         "pincode": "400071",
         "hospitalEmail": "ltghospital2020@gmail.com",
+        "localImagePath": "./assets/9.jpg",
         "specializedIn": [
             "General Surgery",
             "Ophthalmology"
@@ -240,6 +258,7 @@
         "ContactNumber": "0161-2654321897",
         "pincode": "141003",
         "hospitalEmail": "sbsmhospital2021@gmail.com",
+        "localImagePath": "C:\\Users\\yshuk_vqwlj98\\CareCritic\\backend\\assets\\1.jpg",
         "specializedIn": [
             "Cardiology",
             "ENT"
@@ -253,6 +272,7 @@
         "ContactNumber": "020-2654876532",
         "pincode": "411005",
         "hospitalEmail": "csmdhospital@gmail.com",
+        "localImagePath": "./assets/2.jpg",
         "specializedIn": [
             "Cardiology",
             "Neurology"
@@ -266,6 +286,7 @@
         "ContactNumber": "011-2687876543",
         "pincode": "110052",
         "hospitalEmail": "dsrhospital@gmail.com",
+        "localImagePath": "./assets/3.jpg",
         "specializedIn": [
             "Pediatrics",
             "Dermatology"
@@ -279,6 +300,7 @@
         "ContactNumber": "0522-2648987321",
         "pincode": "226024",
         "hospitalEmail": "caghospital2022@gmail.com",
+        "localImagePath": "./assets/4.jpg",
         "specializedIn": [
             "Orthopedics",
             "Cardiology"
@@ -292,6 +314,7 @@
         "ContactNumber": "044-2654876542",
         "pincode": "600020",
         "hospitalEmail": "apjkalamhospital@gmail.com",
+        "localImagePath": "./assets/5.jpg",
         "specializedIn": [
             "Neurology",
             "Oncology"
@@ -305,6 +328,7 @@
         "ContactNumber": "040-2645893210",
         "pincode": "500032",
         "hospitalEmail": "zhhosp@gmail.com",
+        "localImagePath": "./assets/6.jpg",
         "specializedIn": [
             "Pulmonology",
             "Pediatrics"
@@ -318,6 +342,7 @@
         "ContactNumber": "0172-2654321097",
         "pincode": "160022",
         "hospitalEmail": "rphospital2020@gmail.com",
+        "localImagePath": "./assets/7.jpg",
         "specializedIn": [
             "Dermatology",
             "Cardiology"
@@ -331,6 +356,7 @@
         "ContactNumber": "020-2645987432",
         "pincode": "411038",
         "hospitalEmail": "mmmalaviyahospital@gmail.com",
+        "localImagePath": "./assets/8.jpg",
         "specializedIn": [
             "Oncology",
             "Pediatrics"
@@ -344,6 +370,7 @@
         "ContactNumber": "080-2654876541",
         "pincode": "560010",
         "hospitalEmail": "abmemorialhospital@gmail.com",
+        "localImagePath": "./assets/9.jpg",
         "specializedIn": [
             "Cardiology",
             "Gynecology"
@@ -357,6 +384,7 @@
         "ContactNumber": "011-2689321098",
         "pincode": "110001",
         "hospitalEmail": "avbhospital@gmail.com",
+        "localImagePath": "C:\\Users\\yshuk_vqwlj98\\CareCritic\\backend\\assets\\1.jpg",
         "specializedIn": [
             "Dermatology",
             "General Surgery"
@@ -370,6 +398,7 @@
         "ContactNumber": "033-2645876542",
         "pincode": "700016",
         "hospitalEmail": "rtmemorialhospital@gmail.com",
+        "localImagePath": "./assets/2.jpg",
         "specializedIn": [
             "Pediatrics",
             "Cardiology"
@@ -383,6 +412,7 @@
         "ContactNumber": "079-2654789321",
         "pincode": "380007",
         "hospitalEmail": "svphospital2020@gmail.com",
+        "localImagePath": "./assets/3.jpg",
         "specializedIn": [
             "Orthopedics",
             "Neurology"
@@ -396,6 +426,7 @@
         "ContactNumber": "080-2654789543",
         "pincode": "560011",
         "hospitalEmail": "igdhospital2020@gmail.com",
+        "localImagePath": "./assets/4.jpg",
         "specializedIn": [
             "Neurology",
             "Ophthalmology"
@@ -409,6 +440,7 @@
         "ContactNumber": "011-2678432109",
         "pincode": "110015",
         "hospitalEmail": "mahmhospital@gmail.com",
+        "localImagePath": "./assets/5.jpg",
         "specializedIn": [
             "Cardiology",
             "Gynecology"
@@ -422,6 +454,7 @@
         "ContactNumber": "011-2649876543",
         "pincode": "110002",
         "hospitalEmail": "mazadhospital2021@gmail.com",
+        "localImagePath": "./assets/6.jpg",
         "specializedIn": [
             "Orthopedics",
             "Pulmonology"
@@ -435,6 +468,7 @@
         "ContactNumber": "0522-2687654321",
         "pincode": "226001",
         "hospitalEmail": "cadhospital@gmail.com",
+        "localImagePath": "./assets/7.jpg",
         "specializedIn": [
             "Cardiology",
             "Nephrology"
@@ -448,6 +482,7 @@
         "ContactNumber": "0364-2654321097",
         "pincode": "793003",
         "hospitalEmail": "rgmhospital2020@gmail.com",
+        "localImagePath": "./assets/8.jpg",
         "specializedIn": [
             "Gynecology",
             "Dermatology"
@@ -461,6 +496,7 @@
         "ContactNumber": "033-2645987432",
         "pincode": "700032",
         "hospitalEmail": "bcmemorialhospital2022@gmail.com",
+        "localImagePath": "./assets/9.jpg",
         "specializedIn": [
             "Pediatrics",
             "Cardiology"
@@ -474,6 +510,7 @@
         "ContactNumber": "0651-2654321097",
         "pincode": "834001",
         "hospitalEmail": "bmunda2021@gmail.com",
+        "localImagePath": "C:\\Users\\yshuk_vqwlj98\\CareCritic\\backend\\assets\\1.jpg",
         "specializedIn": [
             "Orthopedics",
             "General Surgery"
@@ -487,6 +524,7 @@
         "ContactNumber": "0120-2654765432",
         "pincode": "201301",
         "hospitalEmail": "spmdistricthospital2022@gmail.com",
+        "localImagePath": "./assets/2.jpg",
         "specializedIn": [
             "Cardiology",
             "Neurology"
@@ -500,6 +538,7 @@
         "ContactNumber": "011-2645987432",
         "pincode": "110016",
         "hospitalEmail": "nmhospital2020@gmail.com",
+        "localImagePath": "./assets/3.jpg",
         "specializedIn": [
             "Dermatology",
             "Ophthalmology"
@@ -513,6 +552,7 @@
         "ContactNumber": "011-2654320987",
         "pincode": "110085",
         "hospitalEmail": "aurobindo2020@gmail.com",
+        "localImagePath": "./assets/4.jpg",
         "specializedIn": [
             "Neurology",
             "General Surgery"
@@ -526,6 +566,7 @@
         "ContactNumber": "0172-2654765432",
         "pincode": "160022",
         "hospitalEmail": "pnehruhospital@gmail.com",
+        "localImagePath": "./assets/5.jpg",
         "specializedIn": [
             "Pediatrics",
             "Nephrology"
@@ -539,6 +580,7 @@
         "ContactNumber": "011-2687432109",
         "pincode": "110027",
         "hospitalEmail": "bsaghospital@gmail.com",
+        "localImagePath": "./assets/6.jpg",
         "specializedIn": [
             "Orthopedics",
             "Cardiology"
@@ -552,6 +594,7 @@
         "ContactNumber": "020-2654876543",
         "pincode": "411045",
         "hospitalEmail": "knmhospital@gmail.com",
+        "localImagePath": "./assets/7.jpg",
         "specializedIn": [
             "Gynecology",
             "Ophthalmology"
@@ -565,6 +608,7 @@
         "ContactNumber": "033-2654789321",
         "pincode": "700019",
         "hospitalEmail": "drpghospital@gmail.com",
+        "localImagePath": "./assets/8.jpg",
         "specializedIn": [
             "Cardiology",
             "Neurology"
@@ -578,6 +622,7 @@
         "ContactNumber": "022-2687654321",
         "pincode": "400006",
         "hospitalEmail": "rgmhospital@gmail.com",
+        "localImagePath": "./assets/9.jpg",
         "specializedIn": [
             "Dermatology",
             "Pediatrics"
@@ -591,6 +636,7 @@
         "ContactNumber": "0141-2654321098",
         "pincode": "302004",
         "hospitalEmail": "tnhospital@gmail.com",
+        "localImagePath": "C:\\Users\\yshuk_vqwlj98\\CareCritic\\backend\\assets\\1.jpg",
         "specializedIn": [
             "Orthopedics",
             "ENT"
@@ -604,6 +650,7 @@
         "ContactNumber": "044-2687654321",
         "pincode": "600034",
         "hospitalEmail": "mphospital2021@gmail.com",
+        "localImagePath": "./assets/2.jpg",
         "specializedIn": [
             "Cardiology",
             "Neurology"
@@ -617,6 +664,7 @@
         "ContactNumber": "022-2654789321",
         "pincode": "400050",
         "hospitalEmail": "kgmhospital2022@gmail.com",
+        "localImagePath": "./assets/3.jpg",
         "specializedIn": [
             "Gynecology",
             "Pulmonology"
@@ -630,6 +678,7 @@
         "ContactNumber": "080-2687654321",
         "pincode": "560078",
         "hospitalEmail": "vdhospital2020@gmail.com",
+        "localImagePath": "./assets/4.jpg",
         "specializedIn": [
             "Orthopedics",
             "Cardiology"
@@ -643,6 +692,7 @@
         "ContactNumber": "0183-2687654321",
         "pincode": "143001",
         "hospitalEmail": "bsmhospital@gmail.com",
+        "localImagePath": "./assets/5.jpg",
         "specializedIn": [
             "Neurology",
             "Pediatrics"
@@ -656,6 +706,7 @@
         "ContactNumber": "040-2654876543",
         "pincode": "500034",
         "hospitalEmail": "kcmhospital@gmail.com",
+        "localImagePath": "./assets/6.jpg",
         "specializedIn": [
             "General Surgery",
             "Gynecology"

@@ -27,6 +27,13 @@ const hospitalSchema = new Schema(
       type: String,
       required: true,
     },
+    hospitalImage: {
+      type: String,
+    },
+    rating: {
+      type: Number,
+      required: true
+    },
     specializedIn: [
       {
         type: String,
