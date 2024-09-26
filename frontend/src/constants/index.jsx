@@ -15,8 +15,7 @@ export const navItems = [
     { label: "Hospitals", href: "#" },
     { label: "About Us", href: "#" },
     { label: "Features", href: "#" },
-    { label: "Testimonials", href: "#" },
-    { label: "Contact Us", href: "#" },
+    { label: "Testimonials", href: "#" }
   ];
 
 

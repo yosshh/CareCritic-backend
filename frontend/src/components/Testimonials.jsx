@@ -3,8 +3,8 @@ import { testimonials } from "../constants";
 const Testimonials = () => {
   return (
     <div className=" tracking-wide">
-      <h2 className="text-3xl sm:text-5xl lg:text-6xl text-center lg:my-10">
-        What People are saying
+      <h2 className="text-3xl sm:text-5xl text-yellow-800 lg:text-6xl text-center lg:my-10">
+        What People are saying about Us
       </h2>
       <div className="flex flex-wrap justify-center">
         {testimonials.map((testimonial, index) => (
