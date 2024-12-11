@@ -71,6 +71,10 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const profileImage = await uploadOnCloudinary(profileImageLocalPath);
 
+  if (profileImageLocalPath) {
+    fs.unlinkSync(profileImageLocalPath); // This will delete the file after uploading it
+  }
+
   const user = await User.create({
     fullName,
     email,
@@ -146,10 +150,23 @@ const loginUser = asyncHandler(async (req, res) => {
           refreshToken,
           accessToken,
         },
-        "User Logged In successfully"
+        `User Logged In successfully, welcome back ${user.fullName} `
       )
     );
 });
+
+const getUserProfile = asyncHandler(async (req, res) => {
+  res.status(200)
+  .json(
+    new ApiResponse(
+      200,
+      {
+      success: true,
+      user: req.user,
+      },
+    )
+)})
+
 
 // LOGOUT USER
 const logoutUser = asyncHandler(async (req, res) => {
@@ -222,87 +239,67 @@ const refreshAccessToken = asyncHandler (async (req, res)=> {
   }
 });
 
-const changeCurrentPassword = asyncHandler (async (req, res)=> {
 
-  const { oldPassword, newPassword, confirmPassword} = req.body;
+const updateAccountDetails = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user?._id; // Ensure userId is retrieved from authenticated request
+    const { fullName, email } = req.body;
 
-  if(!(confirmPassword==newPassword)) {
-    throw new ApiError(400, "Password did not match")
-  }
-
-  const user = await User.findById(req.user?._id)
-  const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
-
-  if(!isPasswordCorrect) {
-    throw new ApiError(400, "Invalid Password")
-  }
-
-  user.password = newPassword
-  await user.save({ validateBeforeSave: false})
-
-  return res
-  .status(200)
-  .json(new ApiResponse(200, {}, "Password Changed Successfully"))
-})
-
-const getCurrentUser = asyncHandler (async (req, res)=> {
-  return res
-  .status(200)
-  .json(200, req.user, "Current User fetched Successfully")
-})
-
-const updateAccountDetails = asyncHandler (async (req, res)=> {
-  const {fullName, email} = req.body
-
-  if(!fullName || !email) {
-    throw new ApiError(400, "All fields are required")
-  }
-
-  const user = User.findByIdAndUpdate(
-    req.user?._id,
-    {
-      $set: {
-        fullName,
-        email
-      }
-    },
-    {
-      new: true
+    if (!fullName || !email) {
+      throw new ApiError(400, "All fields are required");
     }
-  ).select("-password")
 
-  return res
-  .status(200)
-  .json(new ApiResponse(200, user, "Account details updated successfully"))
-})
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new ApiError(400, "Invalid email format");
+    }
 
-const updateProfileImage = asyncHandler (async (req, res)=> {
-  const profileImageLocalPath = req.file?.path
+    let profileImage;
 
-  if(!profileImageLocalPath) {
-    throw new ApiError(400, "Profile Image file is missing")
-  }
+    // Handle profile image upload if provided
+    if (req.files?.profileImage?.[0]?.path) {
+      const profilePhoto = await uploadOnCloudinary(req.files.profileImage[0].path);
 
-  const profileImage = await uploadOnCloudinary(profileImageLocalPath)
-
-  if(!profileImage.url) {
-    throw new ApiError(400, "Error while uploading Profile Image")
-  }
-
-  const user = await User.findByIdAndUpdate(req.user?._id,
-    {
-      $set: {
-        profileImage: profileImage.url
+      if (!profilePhoto.url) {
+        throw new ApiError(400, "Error while uploading image");
       }
-    },
-    {new: true}
-  ).select("-password")
 
-  return res
-  .status(200)
-  .json(
-    new ApiResponse(200, user, "Profile Image updated successfully")
-  )
-})
+      profileImage = profilePhoto.url;
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetails, updateProfileImage };
+      // Optionally, delete the local file after upload
+      fs.unlinkSync(req.files.profileImage[0].path);
+    }
+
+    // Update user details
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          fullName,
+          email,
+          ...(profileImage && { profileImage }), // Conditionally include profileImage
+        },
+      },
+      {
+        new: true,
+      }
+    ).select("-password");
+
+    if (!updatedUser) {
+      throw new ApiError(404, "User not found");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, updatedUser, "Account details updated successfully"));
+  } catch (error) {
+    // Log the error and return an appropriate response
+    console.error("Error updating account details:", error);
+    throw new ApiError(error.status || 500, error.message || "An unexpected error occurred");
+  }
+});
+
+
+
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken, updateAccountDetails, getUserProfile };

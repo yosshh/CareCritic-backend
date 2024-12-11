@@ -13,15 +13,18 @@ const hospitalSchema = new Schema(
     },
     city: {
       type: String,
-      required: true,
     },
     pincode: {
       type: String,
-      required: true,
     },
     ContactNumber: {
       type: String,
       required: true,
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
     hospitalEmail: {
       type: String,
@@ -30,15 +33,18 @@ const hospitalSchema = new Schema(
     hospitalImage: {
       type: String,
     },
+    password: {
+      type: String,
+      required: true
+    },
     rating: {
       type: Number,
-      required: true
+      default: 0,
     },
     specializedIn: [
       {
         type: String,
-        default: "General",
-        required: true,
+        default: "General"
       },
     ],
   },
