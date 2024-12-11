@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Hospital } from "../models/hospital.models.js";
 import mongoose from "mongoose";
+import { Review } from "../models/review.models.js";
 
 const createHospital = asyncHandler(async (req, res) => {
   try {
@@ -134,4 +135,6 @@ const updateHospital = asyncHandler(async (req, res) => {
   }
 });
 
-export { getAllHospitals, createHospital, updateHospital };
+
+
+export { getAllHospitals, createHospital, updateHospital }
