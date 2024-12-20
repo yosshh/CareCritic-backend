@@ -24,7 +24,7 @@ const generateAccessAndRefreshToken = async (userId) => {
 };
 
 // REGISTER USER
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = asyncHandler(async(req, res) => {
   // get user validation from frontend
   // check if all fields are not empty
   // check if email is original
@@ -36,10 +36,12 @@ const registerUser = asyncHandler(async (req, res) => {
   // check for user creation
   // return res
 
-  const { userName, fullName, password, email } = req.body;
+  const { userName, fullName, password, email, role } = req.body;
+  console.log(req.body);
+  
 
   if (
-    [fullName, email, userName, password].some((field) => field?.trim() === "")
+    [fullName, email, userName, password, role].some((field) => field?.trim() === "")
   ) {
     throw new ApiError(400, "All fields are required");
   }
@@ -79,6 +81,7 @@ const registerUser = asyncHandler(async (req, res) => {
     fullName,
     email,
     password,
+    role,
     profileImage: profileImage?.url || "",
     userName: userName.toLowerCase(),
   });
@@ -105,7 +108,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // generating and giving access and refresh token to the user
   // send cookie
 
-  const { email, userName, password } = req.body;
+  const { email, userName, password, role } = req.body;
 
   if (!(userName || email)) {
     throw new ApiError(400, "username or email is required."); // giving access to username or email
@@ -123,6 +126,10 @@ const loginUser = asyncHandler(async (req, res) => {
 
   if (!isPasswordValid) {
     throw new ApiError(401, "Invalid user credentials");
+  }
+
+  if (role !== user.role) {
+    throw new ApiError(400, "Invalid Role Credentials.");
   }
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshToken(

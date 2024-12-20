@@ -12,26 +12,28 @@ const userSchema = new Schema(
       lowercase: [true, "username should be in Lower Case"],
       trim: true,
     },
-    email: {
-      type: String,
-      required: [true, "Email is required"],
-      unique: [true, "This email is already registered with another username"],
-      lowercase: true,
-      trim: true,
-    },
     fullName: {
       type: String,
-      required: [true, "Full Name is required"],
-      trim: true,
+      required: true
     },
     profileImage: {
-      type: String, // cloudinary url
+      type: String, 
       default: ""
     },
     password: {
       type: String,
       required: [true, "Password is required"],
     },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    role: {
+    type: String,
+    enum: ["User"],
+    required: true,
+  },
     refreshToken: {
       type: String,
     },
@@ -76,4 +78,5 @@ userSchema.methods.generateRefreshToken = function() {
         }
     )
 }
+
 export const User = mongoose.model("User", userSchema);

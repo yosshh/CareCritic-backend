@@ -3,11 +3,11 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Hospital } from "../models/hospital.models.js";
 import mongoose from "mongoose";
-import { Review } from "../models/review.models.js";
+
 
 const createHospital = asyncHandler(async (req, res) => {
   try {
-    const { hospitalName, ContactNumber, hospitalEmail, password, address } = req.body;
+    const { hospitalName, ContactNumber, hospitalEmail, password, address, role } = req.body;
     if (
       [hospitalName, ContactNumber, hospitalEmail, password, address].some(
         (field) => field?.trim() === ""
@@ -37,7 +37,7 @@ const createHospital = asyncHandler(async (req, res) => {
       password,
       address,
       ContactNumber,
-      userId: req.user._id,
+      role
     });
 
     return res
@@ -105,6 +105,14 @@ const updateHospital = asyncHandler(async (req, res) => {
     }
 
     // cloudinary code for hospital image
+    let HospitalLogoUrl = null;
+        if (req.file?.path) {
+            const HospitalLogo = await uploadOnCloudinary(req.file.path);
+            if (!HospitalLogo.url) {
+                throw new ApiError(400, "Error while uploading Company Logo.");
+            }
+            HospitalLogoUrl = HospitalLogo.url;
+        }
 
     // Update the hospital
     const updateData = {
@@ -116,6 +124,10 @@ const updateHospital = asyncHandler(async (req, res) => {
       ContactNumber,
       specializedIn,
     };
+
+    if (HospitalLogoUrl) {
+      updateData.logo = HospitalLogoUrl;
+  }
 
     const updatedHospital = await Hospital.findByIdAndUpdate(
       req.params.id,

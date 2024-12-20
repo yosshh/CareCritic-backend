@@ -14,17 +14,17 @@ const hospitalSchema = new Schema(
     city: {
       type: String,
     },
+    role: {
+    type: String,
+    enum: ["Hospital"],
+    required: true,
+  },
     pincode: {
       type: String,
     },
     ContactNumber: {
       type: String,
       required: true,
-    },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true
     },
     hospitalEmail: {
       type: String,
@@ -33,18 +33,22 @@ const hospitalSchema = new Schema(
     hospitalImage: {
       type: String,
     },
-    password: {
-      type: String,
-      required: true
+    ratings: {
+      average: { type: Number, default: 0 },
+      count: { type: Number, default: 0 },
     },
-    rating: {
-      type: Number,
-      default: 0,
-    },
+    reviews: [
+      {
+        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        comment: { type: String },
+        rating: { type: Number, min: 1, max: 5 },
+        date: { type: Date, default: Date.now },
+      },
+    ],
     specializedIn: [
       {
         type: String,
-        default: "General"
+        default: "General",
       },
     ],
   },
