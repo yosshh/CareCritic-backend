@@ -61,20 +61,16 @@ const registerUser = asyncHandler(async(req, res) => {
     throw new ApiError(409, "User with this email or username already exists");
   }
 
-  //   const profileImageLocalPath = req.files?.profileImage[0]?.path;
-  let profileImageLocalPath;
-  if (
-    req.files &&
-    Array.isArray(req.files.profileImage) &&
-    req.files.profileImage.length > 0
-  ) {
-    profileImageLocalPath = req.files.profileImage[0].path;
+  let profilePhotoLocalPath;
+  if (req.file) {
+    profilePhotoLocalPath = req.file.path;
+    // console.log("Profile photo file path:", profilePhotoLocalPath);
   }
 
-  const profileImage = await uploadOnCloudinary(profileImageLocalPath);
-
-  if (profileImageLocalPath) {
-    fs.unlinkSync(profileImageLocalPath); // This will delete the file after uploading it
+  let profilePhoto = null;
+  if (profilePhotoLocalPath) {
+    profilePhoto = await uploadOnCloudinary(profilePhotoLocalPath);
+    // console.log("Cloudinary URL:", profilePhoto?.url);
   }
 
   const user = await User.create({
@@ -82,7 +78,7 @@ const registerUser = asyncHandler(async(req, res) => {
     email,
     password,
     role,
-    profileImage: profileImage?.url || "",
+    profilePhoto: profilePhoto?.url || "",
     userName: userName.toLowerCase(),
   });
 

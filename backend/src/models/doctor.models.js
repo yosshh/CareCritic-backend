@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { BaseUser } from "./base.models.js";
 
 const doctorSchema = new Schema(
   {
@@ -7,6 +6,10 @@ const doctorSchema = new Schema(
       type: Number,
       required: true,
       unique: true
+    },
+    name: {
+      type: String,
+      required: true,
     },
     role: {
     type: String,
