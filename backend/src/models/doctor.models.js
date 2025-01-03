@@ -1,33 +1,39 @@
 import mongoose, { Schema } from "mongoose";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const doctorSchema = new Schema(
   {
     contactNumber: {
       type: Number,
       required: true,
-      unique: true
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
     },
     name: {
       type: String,
       required: true,
     },
     role: {
-    type: String,
-    enum: ["Doctor"],
-    required: true,
-  },
-  email: {
+      type: String,
+      enum: ["Doctor"],
+      required: true,
+    },
+    email: {
       type: String,
       required: true,
       unique: true,
     },
     isActive: {
       type: Boolean,
-      default: true
+      default: true,
     },
-    profileImage: {
+    profilePhoto: {
       type: String, // cloudinary url
-      default: ""
+      default: "",
     },
     specialty: {
       type: String,
@@ -53,15 +59,15 @@ const doctorSchema = new Schema(
       {
         day: {
           type: String,
-          required: true
+          default: "Monday-Friday"
         },
-        startTime: { 
-          type: String, 
-          required: true 
+        startTime: {
+          type: String,
+          default: "10:00 AM"
         },
-        endTime: { 
-          type: String, 
-          required: true 
+        endTime: {
+          type: String,
+          default: "6:00 PM"
         },
       },
     ],
@@ -83,4 +89,43 @@ const doctorSchema = new Schema(
     timestamps: true,
   }
 );
+
+doctorSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+doctorSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+doctorSchema.methods.generateAccessToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      email: this.email,
+      name: this.name,
+      role: this.role,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+    }
+  );
+};
+
+doctorSchema.methods.generateRefreshToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      role: this.role,
+    },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    }
+  );
+};
 export const Doctor = mongoose.model("Doctor", doctorSchema);
