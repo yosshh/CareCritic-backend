@@ -34,13 +34,13 @@ const createHospital = asyncHandler(async (req, res) => {
     const {
       hospitalName,
       ContactNumber,
-      hospitalEmail,
+      email,
       password,
       address,
       role,
     } = req.body;
     if (
-      [hospitalName, ContactNumber, hospitalEmail, password, address].some(
+      [hospitalName, ContactNumber, email, password, address].some(
         (field) => field?.trim() === ""
       )
     ) {
@@ -48,12 +48,12 @@ const createHospital = asyncHandler(async (req, res) => {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(hospitalEmail)) {
+    if (!emailRegex.test(email)) {
       throw new ApiError(400, "Invalid email format");
     }
 
     const existedHospital = await Hospital.findOne({
-      $or: [{ ContactNumber }, { hospitalEmail }],
+      $or: [{ ContactNumber }, { email }],
     });
     if (existedHospital) {
       throw new ApiError(
@@ -64,7 +64,7 @@ const createHospital = asyncHandler(async (req, res) => {
 
     const hospital = await Hospital.create({
       hospitalName,
-      hospitalEmail,
+      email,
       password,
       address,
       ContactNumber,
@@ -84,16 +84,16 @@ const createHospital = asyncHandler(async (req, res) => {
 
 const loginHospitals = asyncHandler(async (req, res) => {
   try {
-    const { hospitalEmail, password, role } = req.body;
+    const { email, password, role } = req.body;
 
-    if (!hospitalEmail) {
+    if (!email) {
       throw new ApiError(400, "Email is required.");
     }
     if (!password) {
       throw new ApiError(400, "Password is required.");
     }
 
-    const hospital = await Hospital.findOne({ hospitalEmail });
+    const hospital = await Hospital.findOne({ email });
     if (!hospital) {
       throw new ApiError(404, "Hospital does not exist.");
     }
@@ -150,7 +150,7 @@ const updateHospital = asyncHandler(async (req, res) => {
   try {
     const {
       hospitalName,
-      hospitalEmail,
+      email,
       address,
       city,
       pincode,
@@ -160,7 +160,7 @@ const updateHospital = asyncHandler(async (req, res) => {
     if (
       !(
         hospitalName ||
-        hospitalEmail ||
+        email ||
         address ||
         city ||
         pincode ||
@@ -193,7 +193,7 @@ const updateHospital = asyncHandler(async (req, res) => {
     // Update the hospital
     const updateData = {
       hospitalName,
-      hospitalEmail,
+      email,
       address,
       city,
       pincode,

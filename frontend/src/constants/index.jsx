@@ -6,7 +6,8 @@ import { ChartNoAxesCombined } from "lucide-react";
 
 // API 
 export const USER_API_END_POINT="http://localhost:8000/api/v1/users";
-export const DOCTOR_API_END_POINT="http://localhost:8000/api/v1/users"
+export const DOCTOR_API_END_POINT="http://localhost:8000/api/v1/doctors"
+export const HOSPITAL_API_END_POINT="http://localhost:8000/api/v1/hospitals"
 
 import user1 from "../assets/user1.jpg";
 import user2 from "../assets/user2.jpg";

@@ -32,7 +32,7 @@ const hospitalSchema = new Schema(
       type: String,
       required: true,
     },
-    hospitalEmail: {
+    email: {
       type: String,
       required: true,
     },
@@ -79,7 +79,7 @@ hospitalSchema.methods.generateAccessToken = function() {
   return jwt.sign(
     {
       _id: this._id,
-      email: this.hospitalEmail,  
+      email: this.email,  
       hospitalName: this.hospitalName,
       role: this.role 
     },

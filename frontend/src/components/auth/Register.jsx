@@ -6,6 +6,8 @@ import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
 import { Link, useNavigate } from "react-router-dom";
 import { USER_API_END_POINT } from "@/constants";
+import { DOCTOR_API_END_POINT } from "@/constants";
+import { HOSPITAL_API_END_POINT } from "@/constants";
 import axios from "axios";
 import { toast } from "sonner";
 // import { useDispatch } from "react-redux";
@@ -79,7 +81,7 @@ const Register = () => {
   }
     try {
       // dispatch(setLoading(true));
-      const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
+      const res = await axios.post(`${endpoint}/register`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });

@@ -7,6 +7,8 @@ import { RadioGroup } from "../ui/radio-group";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "@/constants";
+import { DOCTOR_API_END_POINT } from "@/constants";
+import { HOSPITAL_API_END_POINT } from "@/constants";
 import { toast } from "sonner";
 
 const Login = () => {
@@ -26,9 +28,17 @@ const Login = () => {
     e.preventDefault();
     console.log(input);
 
+    let endpoint = USER_API_END_POINT;
+      
+      if (input.role === "Doctor") {
+        endpoint = DOCTOR_API_END_POINT;
+      } else if (input.role === "Hospital") {
+        endpoint = HOSPITAL_API_END_POINT;
+      }
+
     try {
       // dispatch(setLoading(true));
-      const res = await axios.post(`${USER_API_END_POINT}/login`, input, {
+      const res = await axios.post(`${endpoint}/login`, input, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });

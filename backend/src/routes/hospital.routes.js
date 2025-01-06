@@ -5,8 +5,8 @@ import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router()
 
-router.route("/create-hospital").post(createHospital)
-router.route("/get-hospital").get(loginHospitals)
+router.route("/register").post(createHospital)
+router.route("/login").post(loginHospitals)
 router.route("/update/:id").put(verifyJWT, upload.single("file"), updateHospital)
 // router.route("/review/:id").put(verifyJWT, reviewHospital)
 

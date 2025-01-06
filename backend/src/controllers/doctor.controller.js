@@ -125,6 +125,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
 const loginDoctor = asyncHandler(async (req, res) => {
   try {
     const { email, password, role } = req.body;
+console.log('req body', req.body);
 
     if (!email) {
       throw new ApiError(400, "Email is required.");
@@ -135,12 +136,12 @@ const loginDoctor = asyncHandler(async (req, res) => {
 
     const doctor = await Doctor.findOne({ email });
     if (!doctor) {
-      throw new ApiError(404, "Hospital does not exist.");
+      throw new ApiError(404, "Doctor does not exist.");
     }
 
     const isPasswordValid = await doctor.isPasswordCorrect(password);
     if (!isPasswordValid) {
-      throw new ApiError(401, "Invalid hospital credentials.");
+      throw new ApiError(401, "Invalid Doctor credentials.");
     }
 
     if (role !== doctor.role) {

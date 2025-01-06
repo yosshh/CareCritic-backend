@@ -10,7 +10,7 @@ router.route("/register").post(
     upload.single("file"),
     registerDoctor
 )
-router.route("/login").get(loginDoctor)
+router.route("/login").post(loginDoctor)
 router.route("/profile/update").post(verifyJWT,upload.single("file"), updateDoctor); 
 
 
