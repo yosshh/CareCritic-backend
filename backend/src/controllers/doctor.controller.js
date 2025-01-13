@@ -33,7 +33,7 @@ const generateAccessAndRefreshToken = async (doctorId, role) => {
 const registerDoctor = asyncHandler(async (req, res) => {
   try {
     const {
-      name,
+      fullName,
       contactNumber,
       email,
       specialty,
@@ -50,7 +50,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
 
     // Basic validation for required fields
     if (
-      [name, email, contactNumber, password, specialty, qualification].some(
+      [fullName, email, contactNumber, password, specialty, qualification].some(
         (field) => !field || (Array.isArray(field) ? field.length === 0 : field.trim() === "")
       )
     ) {
@@ -80,7 +80,7 @@ const registerDoctor = asyncHandler(async (req, res) => {
 
     // Create the doctor
     const doctor = await Doctor.create({
-      name,
+      fullName,
       contactNumber,
       email,
       specialty,
@@ -205,7 +205,7 @@ const updateDoctor = asyncHandler(async (req, res) => {
     // console.log("Logged-in user:", req.user); 
     const doctorId = req.doctor?._id; 
 
-    const {name,
+    const {fullName,
       contactNumber,
       email,
       specialty,
@@ -218,14 +218,14 @@ const updateDoctor = asyncHandler(async (req, res) => {
       experienceInYears,
       worksIn, } = req.body;
 
-    if (!(name || contactNumber || email || specialty || qualification || role || day || startTime || endTime || isActive || experienceInYears || worksIn)) {
+    if (!(fullName || contactNumber || email || specialty || qualification || role || day || startTime || endTime || isActive || experienceInYears || worksIn)) {
       throw new ApiError(400, "No fields to update.");
     }
 
     const updateData = {};
 
     // Update non-nested fields
-    if (name) updateData.name = name;
+    if (fullName) updateData.fullName = fullName;
     if (email) updateData.email = email;
     if (contactNumber) updateData.contactNumber = contactNumber;
     if (specialty) updateData.specialty = specialty;

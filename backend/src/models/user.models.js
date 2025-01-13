@@ -16,6 +16,10 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    contactNumber: {
+      type: Number,
+      required: true
+    },
     profilePhoto: {
       type: String, 
       default: ""

@@ -36,12 +36,12 @@ const registerUser = asyncHandler(async(req, res) => {
   // check for user creation
   // return res
 
-  const { userName, fullName, password, email, role } = req.body;
+  const { userName, fullName, password, email, role, contactNumber } = req.body;
   console.log(req.body);
   
 
   if (
-    [fullName, email, userName, password, role].some((field) => field?.trim() === "")
+    [fullName, email, userName, contactNumber, password, role].some((field) => field?.trim() === "")
   ) {
     throw new ApiError(400, "All fields are required");
   }
@@ -54,7 +54,7 @@ const registerUser = asyncHandler(async(req, res) => {
   }
 
   const existedUser = await User.findOne({
-    $or: [{ userName }, { email }],
+    $or: [{ userName }, { email }, { contactNumber }],
   });
 
   if (existedUser) {
@@ -77,6 +77,7 @@ const registerUser = asyncHandler(async(req, res) => {
     fullName,
     email,
     password,
+    contactNumber,
     role,
     profilePhoto: profilePhoto?.url || "",
     userName: userName.toLowerCase(),
@@ -246,9 +247,11 @@ const refreshAccessToken = asyncHandler (async (req, res)=> {
 const updateAccountDetails = asyncHandler(async (req, res) => {
   try {
     const userId = req.user?._id; // Ensure userId is retrieved from authenticated request
-    const { fullName, email } = req.body;
+    const { fullName, email, contactNumber, userName } = req.body;
+    console.log("req.body", req.body);
+    
 
-    if (!fullName || !email) {
+    if (!fullName || !email || !contactNumber || !userName) {
       throw new ApiError(400, "All fields are required");
     }
 
@@ -279,6 +282,8 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
       {
         $set: {
           fullName,
+          userName,
+          contactNumber,
           email,
           ...(profileImage && { profileImage }), // Conditionally include profileImage
         },
