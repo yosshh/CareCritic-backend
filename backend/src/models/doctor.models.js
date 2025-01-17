@@ -49,12 +49,6 @@ const doctorSchema = new Schema(
       type: Number,
       default: 0,
     },
-    worksIn: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Hospital",
-      },
-    ],
     availability: [
       {
         day: {

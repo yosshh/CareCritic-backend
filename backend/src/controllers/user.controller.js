@@ -4,6 +4,8 @@ import { User } from "../models/user.models.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
+import fs from "fs";
+
 
 const generateAccessAndRefreshToken = async (userId) => {
   try {
@@ -247,50 +249,55 @@ const refreshAccessToken = asyncHandler (async (req, res)=> {
 const updateAccountDetails = asyncHandler(async (req, res) => {
   try {
     const userId = req.user?._id; // Ensure userId is retrieved from authenticated request
+
+    if (!userId) {
+      throw new ApiError(401, "Unauthorized or invalid user ID");
+    }
+
     const { fullName, email, contactNumber, userName } = req.body;
-    console.log("req.body", req.body);
-    
 
-    if (!fullName || !email || !contactNumber || !userName) {
-      throw new ApiError(400, "All fields are required");
+    if (!Object.keys(req.body).length && !req.file?.path) {
+      throw new ApiError(400, "No fields to update");
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      throw new ApiError(400, "Invalid email format");
-    }
+    const updateData = {};
 
-    let profileImage;
-
-    // Handle profile image upload if provided
-    if (req.files?.profileImage?.[0]?.path) {
-      const profilePhoto = await uploadOnCloudinary(req.files.profileImage[0].path);
-
-      if (!profilePhoto.url) {
-        throw new ApiError(400, "Error while uploading image");
+    // Validate and update fields
+    if (fullName) updateData.fullName = fullName;
+    if (email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        throw new ApiError(400, "Invalid email format");
       }
+      updateData.email = email;
+    }
+    if (contactNumber) updateData.contactNumber = contactNumber;
+    if (userName) updateData.userName = userName;
 
-      profileImage = profilePhoto.url;
+    // Handle profile photo upload
+    if (req.file?.path) {
+      const profilePhoto = await uploadOnCloudinary(req.file.path);
+      if (!profilePhoto.url) {
+        throw new ApiError(400, "Error while uploading profile photo.");
+      }
+      updateData.profilePhoto = profilePhoto.url;
 
-      // Optionally, delete the local file after upload
-      fs.unlinkSync(req.files.profileImage[0].path);
+      // Optionally delete the local file after upload
+      if (req.file?.path) {
+        const filePath = req.file.path;
+        if (fs.existsSync(filePath)) {
+          await fs.promises.unlink(filePath);
+        } else {
+          console.warn(`File not found: ${filePath}`);
+        }
+      }
     }
 
     // Update user details
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      {
-        $set: {
-          fullName,
-          userName,
-          contactNumber,
-          email,
-          ...(profileImage && { profileImage }), // Conditionally include profileImage
-        },
-      },
-      {
-        new: true,
-      }
+      { $set: updateData },
+      { new: true }
     ).select("-password");
 
     if (!updatedUser) {
@@ -301,11 +308,13 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
       .status(200)
       .json(new ApiResponse(200, updatedUser, "Account details updated successfully"));
   } catch (error) {
-    // Log the error and return an appropriate response
     console.error("Error updating account details:", error);
-    throw new ApiError(error.status || 500, error.message || "An unexpected error occurred");
+    return res
+      .status(error.status || 500)
+      .json(new ApiError(error.status || 500, error.message || "An unexpected error occurred"));
   }
 });
+
 
 
 

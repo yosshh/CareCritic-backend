@@ -45,7 +45,6 @@ const registerDoctor = asyncHandler(async (req, res) => {
       endTime,
       isActive,
       experienceInYears,
-      worksIn,
     } = req.body;
 
     // Basic validation for required fields
@@ -96,7 +95,6 @@ const registerDoctor = asyncHandler(async (req, res) => {
       ],
       isActive: isActive !== undefined ? isActive : true,
       experienceInYears: experienceInYears || 0,
-      worksIn,
       profilePhoto,
     });
 
@@ -175,7 +173,7 @@ console.log('req body', req.body);
             refreshToken,
             accessToken,
           },
-          `Logged in successfully, welcome back ${doctor.name}!`
+          `Logged in successfully, welcome back ${doctor.fullName}!`
         )
       );
   } catch (error) {
@@ -185,6 +183,39 @@ console.log('req body', req.body);
       .json(new ApiError(error.statusCode || 500, error.message));
   }
 });
+
+
+const getDoctor = asyncHandler(async (req, res) => {
+  try {
+    const keyword = req.query.keyword || "";
+    const query = {
+      $or: [
+        { fullName: { $regex: keyword, $options: "i" } }, // Search by name
+        { specialty: { $regex: keyword, $options: "i" } } // Search by specialty
+      ]
+    };
+
+    const doctors = await Doctor.find(query)
+      .populate({
+        path: "reviews.user", // Populate the user data in reviews
+        select: "fullName email", // Optionally select fields from the User model
+      })
+      .sort({ createdAt: -1 });
+
+    if (doctors.length === 0) {
+      throw new ApiError(404, "Doctors not found.");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, doctors));
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+
 
 // LOGOUT USER
 const logoutDoctor = async (req, res) => {
@@ -202,23 +233,26 @@ const logoutDoctor = async (req, res) => {
 // Update User
 const updateDoctor = asyncHandler(async (req, res) => {
   try {
-    // console.log("Logged-in user:", req.user); 
-    const doctorId = req.doctor?._id; 
+    const doctorId = req.doctor?._id;
 
-    const {fullName,
+    if (!doctorId) {
+      throw new ApiError(400, "Unauthorized or invalid doctor ID.");
+    }
+
+    const {
+      fullName,
       contactNumber,
       email,
       specialty,
       qualification,
-      role,
       day,
       startTime,
       endTime,
       isActive,
       experienceInYears,
-      worksIn, } = req.body;
+    } = req.body;
 
-    if (!(fullName || contactNumber || email || specialty || qualification || role || day || startTime || endTime || isActive || experienceInYears || worksIn)) {
+    if (Object.keys(req.body).length === 0 && !req.file?.path) {
       throw new ApiError(400, "No fields to update.");
     }
 
@@ -230,39 +264,62 @@ const updateDoctor = asyncHandler(async (req, res) => {
     if (contactNumber) updateData.contactNumber = contactNumber;
     if (specialty) updateData.specialty = specialty;
     if (qualification) updateData.qualification = qualification;
-    if (isActive) updateData.isActive = isActive;
-    if (worksIn) updateData.worksIn = worksIn;
-    if (experienceInYears) updateData.experienceInYears = isActive;
+    if (isActive !== undefined) updateData.isActive = isActive;
+    if (experienceInYears) updateData.experienceInYears = experienceInYears;
 
     // Update nested fields inside `availability`
     if (day) updateData["availability.day"] = day;
     if (startTime) updateData["availability.startTime"] = startTime;
     if (endTime) updateData["availability.endTime"] = endTime;
 
-    if (req.file) {
-      const profilePhoto = await uploadOnCloudinary(req.file.path);
-      if (!profilePhoto.url) {
-        throw new ApiError(400, "Error while uploading file");
-      }
-      updateData["profile.photo"] = profilePhoto.url;
+    // Handle profile image upload if provided
+    let profilePhotoUrl = null;
+    if (req.file?.path) {
+        const profilePhoto = await uploadOnCloudinary(req.file.path);
+        if (!profilePhoto.url) {
+            throw new ApiError(400, "Error while uploading Company Logo.");
+        }
+        profilePhotoUrl = profilePhoto.url;
     }
 
+    if (profilePhotoUrl) {
+      updateData.profilePhoto = profilePhotoUrl;
+  }
+
+    console.log("Update Data:", updateData);
+
+    // Update doctor in the database
     const updatedDoctor = await Doctor.findByIdAndUpdate(
       doctorId,
-      { $set: updateData }, // Use dot notation for nested fields
+      { $set: updateData },
       { new: true, runValidators: true }
-    ).select("-password"); // Exclude password from response
+    ).select("-password");
+
+    if (!updatedDoctor) {
+      throw new ApiError(404, "Doctor not found.");
+    }
 
     return res
       .status(200)
       .json(
-        new ApiResponse(200, updatedDoctor, "Account details updated successfully.")
+        new ApiResponse(
+          200,
+          updatedDoctor,
+          "Account details updated successfully."
+        )
       );
   } catch (error) {
+    console.error("Error updating doctor:", error);
     return res
       .status(error.statusCode || 500)
       .json(new ApiError(error.statusCode || 500, error.message));
   }
 });
 
-export { registerDoctor, loginDoctor, logoutDoctor, updateDoctor}
+
+
+
+
+
+
+export { registerDoctor, loginDoctor, logoutDoctor, updateDoctor, getDoctor}
