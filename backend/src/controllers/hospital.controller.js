@@ -2,6 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { Hospital } from "../models/hospital.models.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import mongoose from "mongoose";
 
 const generateAccessAndRefreshToken = async (hospitalId, role) => {
@@ -33,14 +34,16 @@ const createHospital = asyncHandler(async (req, res) => {
   try {
     const {
       hospitalName,
-      ContactNumber,
+      contactNumber,
       email,
       password,
       address,
       role,
     } = req.body;
+    console.log("request body", req.body);
+    
     if (
-      [hospitalName, ContactNumber, email, password, address].some(
+      [hospitalName, contactNumber, email, password, address].some(
         (field) => field?.trim() === ""
       )
     ) {
@@ -48,12 +51,14 @@ const createHospital = asyncHandler(async (req, res) => {
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      throw new ApiError(400, "Invalid email format");
-    }
+
+  // Check if the email format is valid
+  if (!emailRegex.test(email)) {
+    throw new ApiError(400, "Invalid email format");
+  }
 
     const existedHospital = await Hospital.findOne({
-      $or: [{ ContactNumber }, { email }],
+      $or: [{ contactNumber }, { email }],
     });
     if (existedHospital) {
       throw new ApiError(
@@ -62,12 +67,19 @@ const createHospital = asyncHandler(async (req, res) => {
       );
     }
 
+    let hospitalImage = "";
+    if (req.file) {
+      const uploadedPhoto = await uploadOnCloudinary(req.file.path);
+      hospitalImage = uploadedPhoto?.url || "";
+    }
+
     const hospital = await Hospital.create({
       hospitalName,
       email,
       password,
       address,
-      ContactNumber,
+      contactNumber,
+      hospitalImage,
       role,
     });
 
@@ -142,6 +154,36 @@ const loginHospitals = asyncHandler(async (req, res) => {
     return res
       .status(error.statusCode || 500)
       .json(new ApiError(error.statusCode || 500, error.message));
+  }
+});
+
+const getHospitals = asyncHandler(async (req, res) => {
+  try {
+    const keyword = req.query.keyword || "";
+    const query = {
+      $or: [
+        { hospitalName: { $regex: keyword, $options: "i" } }, // Search by name
+        { specializedIn: { $regex: keyword, $options: "i" } } // Search by specialty
+      ]
+    };
+
+    const hospitals = await Hospital.find(query)
+      .populate({
+        path: "reviews.user", // Populate the user data in reviews
+        select: "hospitalName email", // Optionally select fields from the User model
+      })
+      .sort({ createdAt: -1 });
+
+    if (hospitals.length === 0) {
+      throw new ApiError(404, "Hospitals not found.");
+    }
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, hospitals));
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.message });
   }
 });
 
@@ -227,4 +269,15 @@ const updateHospital = asyncHandler(async (req, res) => {
   }
 });
 
-export { loginHospitals, createHospital, updateHospital };
+const logoutHospital = async (req, res) => {
+  try {
+      return res.status(200).cookie("token", "", { maxAge: 0 }).json({
+          message: "Logged out successfully.",
+          success: true
+      })
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+export { loginHospitals, createHospital, updateHospital, getHospitals, logoutHospital };

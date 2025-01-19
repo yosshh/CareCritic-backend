@@ -13,9 +13,6 @@ const hospitalSchema = new Schema(
       type: String,
       required: true,
     },
-    city: {
-      type: String,
-    },
     password: {
     type: String,
     required: true,
@@ -25,16 +22,18 @@ const hospitalSchema = new Schema(
     enum: ["Hospital"],
     required: true,
   },
-    pincode: {
-      type: String,
-    },
-    ContactNumber: {
-      type: String,
+    contactNumber: {
+      type: Number,
       required: true,
+      unique: true,
     },
     email: {
       type: String,
       required: true,
+      unique: true,
+    },
+    hospitalLogo: {
+      type: String,
     },
     hospitalImage: {
       type: String,
