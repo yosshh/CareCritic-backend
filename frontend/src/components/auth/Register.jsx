@@ -59,7 +59,7 @@ const { loading } = useSelector(store=>store.auth)
     formData.append("password", input.password);
     formData.append("userName", input.userName);
     formData.append("address", input.address);
-    formData.append("specializedIn", input.specializedIn);
+    formData.append("specializedIn", input.specializedIn.join(","));
     formData.append("hospitalName", input.hospitalName);
     formData.append("specialty", input.specialty);
     formData.append("role", input.role);
@@ -329,11 +329,13 @@ const { loading } = useSelector(store=>store.auth)
               <div>
                 <Label>Specialises In</Label>
                 <Input
-                  type="text"
                   name="specializedIn"
                   placeholder="Cardio, Neuro,...."
-                  value={input.specializedIn}
-                  onChange={changeEventHandler}
+                  value={input.specializedIn.join(",")}
+                  onChange={(e) =>
+                      setInput({ ...input, specializedIn: e.target.value.split(",") })
+                    }
+                    className="col-span-3"
                 />
               </div>
               <div>

@@ -229,6 +229,24 @@ const logoutDoctor = async (req, res) => {
   }
 }
 
+const getDoctorById = asyncHandler(async(req, res)=> {
+  try {
+      const doctorId = req.params.id;
+      const doctor = await Doctor.findById(doctorId).populate({
+          path: "reviews.user"
+      });
+      if(!doctor) {
+          throw new ApiError(404, "Doctors not found.")
+      }
+
+      return res
+      .status(200)
+      .json(new ApiResponse(200, doctor))
+  } catch (error) {
+      console.log(error);
+  }
+})
+
 
 // Update User
 const updateDoctor = asyncHandler(async (req, res) => {
@@ -322,4 +340,4 @@ const updateDoctor = asyncHandler(async (req, res) => {
 
 
 
-export { registerDoctor, loginDoctor, logoutDoctor, updateDoctor, getDoctor}
+export { registerDoctor, loginDoctor, logoutDoctor, updateDoctor, getDoctor, getDoctorById}

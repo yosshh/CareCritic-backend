@@ -1,20 +1,39 @@
 
+import axios from "axios";
 import Navbar from "./shared/Navbar";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Award, Contact, GraduationCap, Mail } from "lucide-react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { DOCTOR_API_END_POINT } from "@/constants";
+import { setSingleDoctor } from "@/redux/doctorSlice";
 
 
 
 const DoctorCard = () => {
-  
+  const dispatch = useDispatch();
+  // const isBooked = false;
+  const { singleDoctor } = useSelector(store=> store.doctor)
+  const params = useParams();
+  const doctorId = params.id;
 
-  const { doctor } = useSelector((store) => store.auth);
+  // const { doctor } = useSelector((store) => store.doctor);
+  const { user } = useSelector((store) => store.auth)
 
   useEffect(() => {
-    // console.log("Doctor in Profile:", doctor);
-  }, [doctor]);
+    const fetchSingleDoctor = async () => {
+      try {
+        const res = await axios.get(`${DOCTOR_API_END_POINT}/getDoctors/${doctorId}`,{withCredentials: true});
+        if(res.data.success) {
+          dispatch(setSingleDoctor(res.data.data))
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchSingleDoctor();
+  }, [doctorId, dispatch, user?._id]);
 
   return (
     <div className="bg-[#8FD14F]">
@@ -23,30 +42,30 @@ const DoctorCard = () => {
         <div className="flex justify-between">
           <div className="flex items-center gap-4">
             <Avatar className="h-24 w-24">
-              <AvatarImage src={doctor?.profilePhoto} alt="profile" />
+              <AvatarImage src={singleDoctor?.profilePhoto} alt="profile" />
             </Avatar>
             <div>
-              <h1 className="font-medium text-xl">{doctor?.name}</h1>
-              <p>{doctor?.experienceInYears}+ yrs experience</p>
+              <h1 className="font-medium text-xl">{singleDoctor?.fullName}</h1>
+              <p>{singleDoctor?.experienceInYears}+ yrs experience</p>
             </div>
           </div>
         </div>
         <div className="my-5">
           <div className="flex items-center gap-3 my-2">
             <Mail />
-            <span>{doctor?.email}</span>
+            <span>{singleDoctor?.email}</span>
           </div>
           <div className="flex items-center gap-3 my-2">
             <Contact />
-            <span>{doctor?.contactNumber}</span>
+            <span>{singleDoctor?.contactNumber}</span>
           </div>
           <div className="flex items-center gap-3 my-2">
             <Award />
-            <span>{doctor?.specialty}</span>
+            <span>{singleDoctor?.specialty}</span>
           </div>
           <div className="flex items-center gap-3 my-2">
             <GraduationCap />
-            <span>{doctor?.qualification}</span>
+            <span>{singleDoctor?.qualification}</span>
           </div>
         </div>
       </div>

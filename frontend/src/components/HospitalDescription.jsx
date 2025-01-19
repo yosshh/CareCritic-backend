@@ -1,28 +1,33 @@
 // import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import axios from "axios";
+import { HOSPITAL_API_END_POINT } from "@/constants";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { setSingleHospital } from "@/redux/hospitalSlice";
 // import { Button } from "./ui/button";
 // import { useEffect, useState } from "react";
 // import axios from "axios";
 // import { JOB_API_END_POINT } from "@/constants";
 // import { useDispatch, useSelector } from "react-redux";
-// import { setSingleJob } from "@/redux/jobSlice";
 // import { APPLICATION_API_END_POINT } from "@/constants";
 // import { toast } from "sonner";
 
 const HospitalDescription = () => {
-//   const dispatch = useDispatch();
-//   const params = useParams();
-// //   const jobId = params.id;
-//   const { singleJob } = useSelector((store) => store.job);
-//   const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const params = useParams();
+  const hospitalId = params.id;
+  const { singleHospital } = useSelector((store) => store.hospital);
+  const { user } = useSelector((store) => store.auth);
   
 
   const isBookedAppointment = false;
-//   const isIntiallyApplied =
-//     singleJob?.applications?.some(
-//       (application) => application.applicant === user?._id
-//     ) || false;
+  // const isIntiallyBookedAppointment =
+  //   singleHospital?.appointments?.some(
+  //     (application) => application.applicant === user?._id
+  //   ) || false;
 
     // const [isBookedAppointment, setIsBookedAppointment] = useState(isIntiallyApplied);
 
@@ -48,32 +53,28 @@ const HospitalDescription = () => {
 //     }
 //   };
 
-//   useEffect(() => {
-//     const fetchSingleJob = async () => {
-//       try {
-//         // const res = await axios.get(`${JOB_API_END_POINT}/getJobs/${jobId}`, {
-//           withCredentials: true,
-//         });
-//         if (res.data.success) {
-//           dispatch(setSingleJob(res.data.data));
-//           setIsApplied(res.data.data.applications.some(application=>application.applicant === user?._id))
-//         //   console.log("job fetched", res.data.data);
-//         }
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     };
-//     fetchSingleJob();
-//   }, [jobId, dispatch, user?._id]);
+useEffect(() => {
+  const fetchSingleHospital = async () => {
+    try {
+      const res = await axios.get(`${HOSPITAL_API_END_POINT}/getHospital/${hospitalId}`,{withCredentials: true});
+      if(res.data.success) {
+        dispatch(setSingleHospital(res.data.data))
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  fetchSingleHospital();
+}, [hospitalId, dispatch, user?._id]);
 
   return (
     <div className="max-w-7xl mx-auto my-10 py-2">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-bold text-xl">Hospital Name</h1>
+          <h1 className="font-bold text-xl">{singleHospital?.hospitalName}</h1>
           <div className="flex items-center gap-2 mt-4">
             <Badge className={"text-blue-700 font-bold"} variant="ghost">
-              Specialty
+            {singleHospital?.specializedIn}
             </Badge>
             <Badge className={"text-[#F83002] font-bold"} variant="ghost">
               {/* {singleJob?.jobType} */}
@@ -100,19 +101,13 @@ const HospitalDescription = () => {
       </h1>
       <div className="my-4">
         <h1 className="font-bold my-1">
-          Address:{" "}
+          Address:{singleHospital?.address}
           <span className="pl-4 font-normal text-gray-800">
             {/* {singleJob?.title} */}
           </span>
         </h1>
         <h1 className="font-bold my-1">
-          Pin Code:{" "}
-          <span className="pl-4 font-normal text-gray-800">
-            {/* {singleJob?.location} */}
-          </span>
-        </h1>
-        <h1 className="font-bold my-1">
-          Contact Number:{" "}
+          Contact Number:{singleHospital?.contactNumber}
           <span className="pl-4 font-normal text-gray-800">
             {/* {singleJob?.title} */}
           </span>

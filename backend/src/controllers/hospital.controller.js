@@ -38,6 +38,7 @@ const createHospital = asyncHandler(async (req, res) => {
       email,
       password,
       address,
+      specializedIn,
       role,
     } = req.body;
     console.log("request body", req.body);
@@ -78,6 +79,7 @@ const createHospital = asyncHandler(async (req, res) => {
       email,
       password,
       address,
+      specializedIn: specializedIn.split(","),
       contactNumber,
       hospitalImage,
       role,
@@ -188,6 +190,25 @@ const getHospitals = asyncHandler(async (req, res) => {
 });
 
 
+const getHospitalById = asyncHandler(async(req, res)=> {
+  try {
+      const hospitalId = req.params.id;
+      const hospital = await Hospital.findById(hospitalId).populate({
+          path: "reviews.user"
+      });
+      if(!hospital) {
+          throw new ApiError(404, "Hospitals not found.")
+      }
+
+      return res
+      .status(200)
+      .json(new ApiResponse(200, hospital))
+  } catch (error) {
+      console.log(error);
+  }
+})
+
+
 const updateHospital = asyncHandler(async (req, res) => {
   try {
     const {
@@ -280,4 +301,4 @@ const logoutHospital = async (req, res) => {
   }
 }
 
-export { loginHospitals, createHospital, updateHospital, getHospitals, logoutHospital };
+export { loginHospitals, createHospital, updateHospital, getHospitals, logoutHospital, getHospitalById };
