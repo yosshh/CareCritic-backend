@@ -1,8 +1,8 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/ApiError.js";
+import { ApiError } from "../utils/apiError.js";
 import { Doctor } from "../models/doctor.models.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
+import { ApiResponse } from "../utils/apiResponse.js";
 import jwt from "jsonwebtoken";
 
 
@@ -199,12 +199,20 @@ const getDoctor = asyncHandler(async (req, res) => {
       .populate({
         path: "reviews.user", // Populate the user data in reviews
         select: "fullName email", // Optionally select fields from the User model
+      }).populate({
+        path: "appointments", // Populate appointments
+        select: "date user", // Only fetch appointment date & user
+        populate: {
+          path: "user", // Populate user inside appointment
+          select: "_id", // Fetch necessary user details
+        }
       })
       .sort({ createdAt: -1 });
 
     if (doctors.length === 0) {
       throw new ApiError(404, "Doctors not found.");
     }
+
 
     return res
       .status(200)

@@ -56,6 +56,12 @@ const hospitalSchema = new Schema(
         default: "General",
       },
     ],
+    appointments: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Appointment",
+            }
+        ],
     refreshToken: {
       type: String,
     },

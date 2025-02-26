@@ -65,6 +65,12 @@ const doctorSchema = new Schema(
         },
       },
     ],
+    appointments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Appointment",
+        }
+    ],
     ratings: {
       average: { type: Number, default: 0 },
       count: { type: Number, default: 0 },

@@ -9,11 +9,11 @@ const reviewSchema = new Schema(
     },
     entity: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true, // Could be a Doctor or Hospital ID
+      required: true,
     },
     entityType: {
       type: String,
-      enum: ["Doctor", "Hospital"], // To distinguish what is being reviewed
+      enum: ["Doctor", "Hospital"], // Ensures only these two types
       required: true,
     },
     rating: {
@@ -34,9 +34,7 @@ const reviewSchema = new Schema(
   { timestamps: true }
 );
 
-
-
 // Ensure a user can review a hospital or a Doctor only once
-reviewSchema.index({ user: 1, hospital: 1 }, { unique: true });
+reviewSchema.index({ user: 1, entity: 1, entityType: 1 }, { unique: true });
 
 export const Review = mongoose.model("Review", reviewSchema);
