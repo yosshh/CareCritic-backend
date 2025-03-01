@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import TimePicker from "react-time-picker";
 import { Avatar, AvatarImage } from "./ui/avatar";
-import { Award, Contact, GraduationCap, Mail } from "lucide-react";
+import { Award, Contact, GraduationCap, Mail, Star } from "lucide-react";
 import Navbar from "./shared/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -12,6 +12,9 @@ import { DOCTOR_API_END_POINT, APPOINTMENT_API_END_POINT } from "@/constants";
 import { toast } from "sonner";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
+import { Button } from "./ui/button";
+import PostDoctorReviewDialog from "./PostDoctorReviewDialog";
+
 
 const DoctorCard = () => {
   const dispatch = useDispatch();
@@ -24,6 +27,7 @@ const DoctorCard = () => {
   const [date, setDate] = useState(null);
   const [timeSlot, setTimeSlot] = useState("");
   const [reason, setReason] = useState("");
+  const [open, setOpen] = useState(false);
 
   // Fetch the single doctor's details
   useEffect(() => {
@@ -105,6 +109,13 @@ const DoctorCard = () => {
               <p>{singleDoctor?.experienceInYears}+ yrs experience</p>
             </div>
           </div>
+          <Button
+            onClick={() => setOpen(true)}
+            className="text-right"
+            variant="outline"
+          >
+           <Star />Post Review
+          </Button>
         </div>
 
         {/* Doctor details */}
@@ -185,6 +196,7 @@ const DoctorCard = () => {
           </button>
         </div>
       </div>
+      <PostDoctorReviewDialog open={open} setOpen={setOpen} />
     </div>
   );
 };
