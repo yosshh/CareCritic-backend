@@ -54,7 +54,7 @@ const reviewHospital = asyncHandler(async (req, res) => {
     hospital.ratings.average = parseFloat(averageRating.toFixed(1));
     hospital.ratings.count = totalReviews;
     
-
+    hospital.reviews.push(newReview._id);
     await hospital.save({ validateBeforeSave: false });
 
     return res
@@ -119,6 +119,7 @@ const reviewHospital = asyncHandler(async (req, res) => {
       doctor.ratings.average = parseFloat(averageRating.toFixed(1));
       doctor.ratings.count = totalReviews;
   
+      doctor.reviews.push(newReview._id);
       
       await doctor.save({ validateBeforeSave: false });
   

@@ -104,8 +104,6 @@ const bookHospitalAppointment = asyncHandler(async (req, res) => {
     const existingAppointment = await Appointment.findOne({
       hospital: hospitalId,
       user: userId,
-      date,
-      timeSlot,
     });
     if (existingAppointment) {
       throw new ApiError(400, "You have already booked an appointment for this time slot.");

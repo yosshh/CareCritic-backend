@@ -10,6 +10,7 @@ const reviewSchema = new Schema(
     entity: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      refPath: "entityType",
     },
     entityType: {
       type: String,

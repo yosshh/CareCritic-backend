@@ -5,9 +5,10 @@ import bcrypt from "bcrypt";
 const doctorSchema = new Schema(
   {
     contactNumber: {
-      type: Number,
+      type: String, // Changed to String for proper phone number storage
       required: true,
       unique: true,
+      trim: true,
     },
     password: {
       type: String,
@@ -26,14 +27,15 @@ const doctorSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true,
     },
     isActive: {
       type: Boolean,
       default: true,
     },
     profilePhoto: {
-      type: String, // cloudinary url
-      default: "",
+      type: String,
+      default: "https://www.example.com/default-profile.png",
     },
     specialty: {
       type: String,
@@ -53,23 +55,24 @@ const doctorSchema = new Schema(
       {
         day: {
           type: String,
-          default: "Monday-Friday"
+          enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          required: true,
         },
         startTime: {
           type: String,
-          default: "10:00 AM"
+          required: true,
         },
         endTime: {
           type: String,
-          default: "6:00 PM"
+          required: true,
         },
       },
     ],
     appointments: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Appointment",
-        }
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Appointment",
+      },
     ],
     ratings: {
       average: { type: Number, default: 0 },
@@ -77,10 +80,8 @@ const doctorSchema = new Schema(
     },
     reviews: [
       {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        comment: { type: String },
-        rating: { type: Number, min: 1, max: 5 },
-        date: { type: Date, default: Date.now },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review",
       },
     ],
   },
@@ -90,17 +91,27 @@ const doctorSchema = new Schema(
   }
 );
 
+// Password hashing middleware
 doctorSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-
-  this.password = await bcrypt.hash(this.password, 10);
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
+// Remove password from JSON responses
+doctorSchema.methods.toJSON = function () {
+  const doctor = this.toObject();
+  delete doctor.password;
+  return doctor;
+};
+
+// Password comparison
 doctorSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
+// Generate Access Token
 doctorSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
@@ -116,6 +127,7 @@ doctorSchema.methods.generateAccessToken = function () {
   );
 };
 
+// Generate Refresh Token
 doctorSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {
@@ -128,4 +140,10 @@ doctorSchema.methods.generateRefreshToken = function () {
     }
   );
 };
+
+// Add Indexes for faster queries
+doctorSchema.index({ email: 1 }, { unique: true });
+doctorSchema.index({ contactNumber: 1 }, { unique: true });
+doctorSchema.index({ role: 1 });
+
 export const Doctor = mongoose.model("Doctor", doctorSchema);

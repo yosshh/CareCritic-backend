@@ -28,8 +28,9 @@ const HospitalDescription = () => {
   const [reason, setReason] = useState("");
   const [open, setOpen] = useState(false);
 
-  // Fetch the single doctor's details
+  
   useEffect(() => {
+    if(!user) return
     const fetchSingleHospital = async () => {
       try {
         const res = await axios.get(
@@ -38,19 +39,33 @@ const HospitalDescription = () => {
         );
         if (res.data.success) {
           dispatch(setSingleHospital(res.data.data));
-          const isAlreadyBooked = res.data.data.appointments?.some(
-            (appointment) => appointment.user === user?._id
-          );
-          setIsBooked(isAlreadyBooked || false);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchSingleHospital();
-  }, [hospitalId, dispatch, user?._id]);
+          console.log("Hospital Appointments:", res.data.data.appointments);
+        console.log("Current User ID:", user?._id);
 
-  // Booking handler
+        setTimeout(() => {
+          if (res.data.data.appointments) {
+            const isAlreadyBooked = res.data.data.appointments.some(
+              (appointment) => 
+                
+                {
+                // console.log("Checking appointment:", appointment);
+                  // console.log("Appointment User ID:", appointment?.user?._id)
+                  return String(appointment?.user?._id) === String(user?._id);}
+            );
+            // console.log("Is Already Booked:", isAlreadyBooked);
+            setIsBooked(isAlreadyBooked);
+          }
+        }, 100); 
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to load doctor details.");
+    }
+  };
+  fetchSingleHospital();
+}, [hospitalId, dispatch, user]);
+
+  
   const bookAppointmentHandler = async () => {
     if (!date || !timeSlot || !reason) {
       toast.error("Please fill all fields before booking!");
@@ -74,13 +89,16 @@ const HospitalDescription = () => {
       );
 
       if (res.data.success) {
-        setIsBooked(true);
-        const updatedSingleHospital = {
-          ...singleHospital,
-          appointments: [...singleHospital.appointments, { user: user?._id }],
-        };
-        dispatch(setSingleHospital(updatedSingleHospital));
-        toast.success(res.data.message);
+        
+        const updatedHospitalRes = await axios.get(
+          `${HOSPITAL_API_END_POINT}/getHospital/${hospitalId}`,
+          { withCredentials: true }
+        );
+        if (updatedHospitalRes.data.success) {
+          dispatch(setSingleHospital(updatedHospitalRes.data.data));
+          setIsBooked(true);
+          toast.success("Appointment booked successfully.");
+        }
       }
     } catch (error) {
       console.log(error);
@@ -98,7 +116,9 @@ const HospitalDescription = () => {
               <AvatarImage src={singleHospital?.hospitalImage} alt="profile" />
             </Avatar>
             <div>
-              <h1 className="font-medium text-xl">{singleHospital?.hospitalName}</h1>
+              <h1 className="font-medium text-xl">
+                {singleHospital?.hospitalName}
+              </h1>
             </div>
           </div>
           <Button
@@ -106,11 +126,11 @@ const HospitalDescription = () => {
             className="text-right"
             variant="outline"
           >
-           <Star />Post Review
+            <Star />
+            Post Review
           </Button>
         </div>
 
-        {/* Doctor details */}
         <div className="my-5">
           <div className="flex items-center gap-3 my-2">
             <Mail />
@@ -120,65 +140,61 @@ const HospitalDescription = () => {
             <Contact />
             <span>{singleHospital?.contactNumber}</span>
           </div>
-
         </div>
-        {/* Booking Details */}
         <div className="p-4 bg-[#FFF6DA] rounded-md23 z-20 ">
-            <h4 className="text-lg font-semibold text-[#B82132] mb-4">
-              Book Appointment
-            </h4>
+          <h4 className="text-lg font-semibold text-[#B82132] mb-4">
+            Book Appointment
+          </h4>
 
-            {/* Date Picker */}
-            <div className="mb-3">
-              <label className="block text-sm mb-1 text-[#a01b2b72]">
-                Select Date:
-              </label>
-              <DatePicker
-                selected={date}
-                onChange={(selectedDate) => setDate(selectedDate)}
-                className="w-full p-2 rounded-md border bg-white text-gray-900"
-                placeholderText="Pick a date"
-                minDate={new Date()} // Prevent selecting past dates
-              />
-            </div>
-
-            {/* Time Picker */}
-            <div className="mb-3">
-              <label className="block text-sm mb-1 text-[#a01b2b72]">
-                Select Time:
-              </label>
-              <TimePicker
-                value={timeSlot}
-                onChange={(selectedTime) => setTimeSlot(selectedTime)}
-                className="w-full p-2 rounded-md border bg-white text-gray-900"
-                disableClock={true} // Removes the clock UI
-              />
-            </div>
-
-            {/* Reason Input */}
-            <div className="mb-3">
-              <label className="block text-sm mb-1 text-[#a01b2b72]">
-                Reason for Appointment:
-              </label>
-              <input
-                type="text"
-                value={reason}
-                onChange={(e) => setReason(e.target.value)}
-                className="w-full p-2 rounded-md border bg-white text-gray-900"
-                placeholder="Enter a reason"
-              />
-            </div>
-
-            <button
-              onClick={bookAppointmentHandler}
-              disabled={isBooked}
-              className={`w-full p-2 text-white rounded-md ${
-                isBooked ? "bg-gray-600 cursor-not-allowed" : "bg-[#FFA09B]"
-              }`}
-            >
-              {isBooked ? "Already Booked" : "Book Appointment"}
-            </button>
+          <div className="mb-3">
+            <label className="block text-sm mb-1 text-[#a01b2b72]">
+              Select Date:
+            </label>
+            <DatePicker
+              selected={date}
+              onChange={(selectedDate) => setDate(selectedDate)}
+              className="w-full p-2 rounded-md border bg-white text-gray-900"
+              placeholderText="Pick a date"
+              minDate={new Date()} 
+            />
           </div>
+
+        
+          <div className="mb-3">
+            <label className="block text-sm mb-1 text-[#a01b2b72]">
+              Select Time:
+            </label>
+            <TimePicker
+              value={timeSlot}
+              onChange={(selectedTime) => setTimeSlot(selectedTime)}
+              className="w-full p-2 rounded-md border bg-white text-gray-900"
+              disableClock={true} 
+            />
+          </div>
+
+          
+          <div className="mb-3">
+            <label className="block text-sm mb-1 text-[#a01b2b72]">
+              Reason for Appointment:
+            </label>
+            <input
+              type="text"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              className="w-full p-2 rounded-md border bg-white text-gray-900"
+              placeholder="Enter a reason"
+            />
+          </div>
+          <button
+            onClick={bookAppointmentHandler}
+            disabled={isBooked}
+            className={`w-full p-2 text-white rounded-md ${
+              isBooked ? "bg-gray-600 cursor-not-allowed" : "bg-[#FFA09B]"
+            }`}
+          >
+            {isBooked ? "Already Booked" : "Book Appointment"}
+          </button>
+        </div>
       </div>
       <PostHospitalReviewDialog open={open} setOpen={setOpen} />
     </div>

@@ -3,6 +3,7 @@ import { ApiError } from "../utils/apiError.js";
 import { Doctor } from "../models/doctor.models.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/apiResponse.js";
+import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
 
@@ -237,23 +238,46 @@ const logoutDoctor = async (req, res) => {
   }
 }
 
-const getDoctorById = asyncHandler(async(req, res)=> {
+const getDoctorById = asyncHandler(async (req, res) => {
   try {
-      const doctorId = req.params.id;
-      const doctor = await Doctor.findById(doctorId).populate({
-          path: "reviews.user"
-      });
-      if(!doctor) {
-          throw new ApiError(404, "Doctors not found.")
-      }
+    const doctorId = req.params.id;
 
-      return res
-      .status(200)
-      .json(new ApiResponse(200, doctor))
+    if (!mongoose.isValidObjectId(doctorId)) {
+      throw new ApiError(400, "Invalid Doctor ID.");
+    }
+
+    const doctor = await Doctor.findById(doctorId)
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "user",  
+          select: "fullName email", 
+        },
+      })
+      .populate({
+        path: "appointments",
+        select: "date user", 
+        populate: {
+          path: "user", 
+          select: "_id fullName email", 
+        },
+      });
+
+    if (!doctor) {
+      throw new ApiError(404, "Doctor not found.");
+    }
+
+    console.log("Doctor Reviews:", doctor.reviews);
+
+    
+
+    return res.status(200).json(new ApiResponse(200, doctor));
   } catch (error) {
-      console.log(error);
+    console.error("Error fetching doctor:", error);
+    return res.status(error.statusCode || 500).json(new ApiError(error.statusCode || 500, error.message));
   }
-})
+});
+
 
 
 // Update User
