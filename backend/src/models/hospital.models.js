@@ -14,14 +14,14 @@ const hospitalSchema = new Schema(
       required: true,
     },
     password: {
-    type: String,
-    required: true,
-  },
+      type: String,
+      required: true,
+    },
     role: {
-    type: String,
-    enum: ["Hospital"],
-    required: true,
-  },
+      type: String,
+      enum: ["Hospital"],
+      required: true,
+    },
     contactNumber: {
       type: Number,
       required: true,
@@ -44,12 +44,11 @@ const hospitalSchema = new Schema(
     },
     reviews: [
       {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        comment: { type: String },
-        rating: { type: Number, min: 1, max: 5 },
-        date: { type: Date, default: Date.now },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review",
       },
     ],
+    default: [],
     specializedIn: [
       {
         type: String,
@@ -57,11 +56,11 @@ const hospitalSchema = new Schema(
       },
     ],
     appointments: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Appointment",
-            }
-        ],
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Appointment",
+      },
+    ],
     refreshToken: {
       type: String,
     },
@@ -70,43 +69,42 @@ const hospitalSchema = new Schema(
 );
 
 hospitalSchema.pre("save", async function (next) {
-  if(!this.isModified("password")) return next();
+  if (!this.isModified("password")) return next();
 
-  this.password = await bcrypt.hash(this.password, 10)
-  next()
-})
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
-hospitalSchema.methods.isPasswordCorrect = async function(password) {
-  return await bcrypt.compare(password, this.password)
-}
+hospitalSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
-hospitalSchema.methods.generateAccessToken = function() {
+hospitalSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
       _id: this._id,
-      email: this.email,  
+      email: this.email,
       hospitalName: this.hospitalName,
-      role: this.role 
+      role: this.role,
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
     }
   );
 };
 
-
-hospitalSchema.methods.generateRefreshToken = function() {
+hospitalSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
-      {
-          _id: this._id,
-          role: this.role
-      },
-      process.env.REFRESH_TOKEN_SECRET,
-      {
-          expiresIn: process.env.REFRESH_TOKEN_EXPIRY
-      }
-  )
-}
+    {
+      _id: this._id,
+      role: this.role,
+    },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    }
+  );
+};
 
 export const Hospital = mongoose.model("Hospital", hospitalSchema);

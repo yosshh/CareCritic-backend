@@ -242,34 +242,35 @@ const getDoctorById = asyncHandler(async (req, res) => {
   try {
     const doctorId = req.params.id;
 
+    console.log("Doctor ID received from frontend:", doctorId); 
+
     if (!mongoose.isValidObjectId(doctorId)) {
+      console.error("Invalid Doctor ID detected:", doctorId);
       throw new ApiError(400, "Invalid Doctor ID.");
     }
 
     const doctor = await Doctor.findById(doctorId)
-      .populate({
-        path: "reviews",
-        populate: {
-          path: "user",  
-          select: "fullName email", 
-        },
-      })
-      .populate({
-        path: "appointments",
-        select: "date user", 
-        populate: {
-          path: "user", 
-          select: "_id fullName email", 
-        },
-      });
+  .populate({
+    path: "reviews",
+    populate: {
+      path: "user",
+      select: "fullName email",
+    },
+  })
+  .populate({
+    path: "appointments",
+    select: "date user",
+    populate: {
+      path: "user",
+      select: "_id fullName email",
+    },
+  });
 
     if (!doctor) {
       throw new ApiError(404, "Doctor not found.");
     }
 
-    console.log("Doctor Reviews:", doctor.reviews);
-
-    
+    console.log("Doctor fetched successfully:", doctor); // 🔥 Log fetched doctor details
 
     return res.status(200).json(new ApiResponse(200, doctor));
   } catch (error) {
@@ -277,6 +278,7 @@ const getDoctorById = asyncHandler(async (req, res) => {
     return res.status(error.statusCode || 500).json(new ApiError(error.statusCode || 500, error.message));
   }
 });
+
 
 
 

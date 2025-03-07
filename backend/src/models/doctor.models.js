@@ -99,19 +99,18 @@ doctorSchema.pre("save", async function (next) {
   next();
 });
 
-// Remove password from JSON responses
+
 doctorSchema.methods.toJSON = function () {
   const doctor = this.toObject();
   delete doctor.password;
   return doctor;
 };
 
-// Password comparison
+
 doctorSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-// Generate Access Token
 doctorSchema.methods.generateAccessToken = function () {
   return jwt.sign(
     {
@@ -127,7 +126,6 @@ doctorSchema.methods.generateAccessToken = function () {
   );
 };
 
-// Generate Refresh Token
 doctorSchema.methods.generateRefreshToken = function () {
   return jwt.sign(
     {
@@ -141,7 +139,6 @@ doctorSchema.methods.generateRefreshToken = function () {
   );
 };
 
-// Add Indexes for faster queries
 doctorSchema.index({ email: 1 }, { unique: true });
 doctorSchema.index({ contactNumber: 1 }, { unique: true });
 doctorSchema.index({ role: 1 });

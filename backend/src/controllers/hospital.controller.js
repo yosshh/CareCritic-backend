@@ -164,25 +164,33 @@ const getHospitals = asyncHandler(async (req, res) => {
     const keyword = req.query.keyword || "";
     const query = {
       $or: [
-        { hospitalName: { $regex: keyword, $options: "i" } }, // Search by name
-        { specializedIn: { $regex: keyword, $options: "i" } } // Search by specialty
+        { fullName: { $regex: keyword, $options: "i" } }, 
+        { specializedIn: { $regex: keyword, $options: "i" } } 
       ]
     };
 
-    const hospitals = await Hospital.find(query)
+    const hospital = await Hospital.find(query)
       .populate({
-        path: "reviews.user", // Populate the user data in reviews
-        select: "hospitalName email", // Optionally select fields from the User model
+        path: "reviews.user", 
+        select: "fullName email", 
+      }).populate({
+        path: "appointments", 
+        select: "date user", 
+        populate: {
+          path: "user", 
+          select: "_id", 
+        }
       })
       .sort({ createdAt: -1 });
 
-    if (hospitals.length === 0) {
+    if (hospital.length === 0) {
       throw new ApiError(404, "Hospitals not found.");
     }
 
+
     return res
       .status(200)
-      .json(new ApiResponse(200, hospitals));
+      .json(new ApiResponse(200, hospital));
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
@@ -190,23 +198,46 @@ const getHospitals = asyncHandler(async (req, res) => {
 });
 
 
-const getHospitalById = asyncHandler(async(req, res)=> {
+const getHospitalById = asyncHandler(async (req, res) => {
   try {
-      const hospitalId = req.params.id;
-      const hospital = await Hospital.findById(hospitalId).populate({
-          path: "reviews.user"
-      });
-      if(!hospital) {
-          throw new ApiError(404, "Hospitals not found.")
-      }
+    const hospitalId = req.params.id;
 
-      return res
-      .status(200)
-      .json(new ApiResponse(200, hospital))
+    console.log("Hospital ID received from frontend:", hospitalId); 
+
+    if (!mongoose.isValidObjectId(hospitalId)) {
+      console.error("Invalid Hospital ID detected:", hospitalId);
+      throw new ApiError(400, "Invalid Hospital ID.");
+    }
+
+    const hospital = await Hospital.findById(hospitalId)
+  .populate({
+    path: "reviews",
+    populate: {
+      path: "user",
+      select: "fullName email",
+    },
+  })
+  .populate({
+    path: "appointments",
+    select: "date user",
+    populate: {
+      path: "user",
+      select: "_id fullName email",
+    },
+  });
+
+    if (!hospital) {
+      throw new ApiError(404, "Hospital not found.");
+    }
+
+    console.log("Hospital fetched successfully:", hospital); 
+
+    return res.status(200).json(new ApiResponse(200, hospital));
   } catch (error) {
-      console.log(error);
+    console.error("Error fetching hospital:", error);
+    return res.status(error.statusCode || 500).json(new ApiError(error.statusCode || 500, error.message));
   }
-})
+});
 
 
 const updateHospital = asyncHandler(async (req, res) => {
